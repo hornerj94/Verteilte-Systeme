@@ -1,4 +1,4 @@
-package a2.utils;
+package a2;
 
 /**
  * Represents an mathematical matrix.
