@@ -2,6 +2,8 @@ package a2.utils;
 
 import java.util.Stack;
 
+import a2.CalculationTask;
+import a2.Matrix;
 import a2.conf.ViolatedMatrixMultiplicationRules;
 
 /**

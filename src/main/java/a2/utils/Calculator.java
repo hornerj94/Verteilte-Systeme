@@ -1,5 +1,6 @@
 package a2.utils;
 
+import a2.Matrix;
 import a2.conf.ViolatedMatrixMultiplicationRules;
 
 /**

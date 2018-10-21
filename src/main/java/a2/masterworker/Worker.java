@@ -2,8 +2,8 @@ package a2.masterworker;
 
 import java.util.concurrent.Semaphore;
 
+import a2.CalculationTask;
 import a2.conf.ViolatedMatrixMultiplicationRules;
-import a2.utils.CalculationTask;
 
 /**
  * The class takes the role of an worker in the master-worker-paradigm.

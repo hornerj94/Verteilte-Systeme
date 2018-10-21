@@ -1,6 +1,6 @@
 package a2.masterworker;
 
-import a2.utils.Matrix;
+import a2.Matrix;
 
 public class Main {
     // ---------------------------------------------------------------------------------------------

@@ -1,7 +1,7 @@
 package a2.resultatsparallelismus;
 
+import a2.Matrix;
 import a2.masterworker.Master;
-import a2.utils.Matrix;
 
 public class Main {
     // ---------------------------------------------------------------------------------------------

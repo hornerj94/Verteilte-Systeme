@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Stack;
 import java.util.concurrent.Semaphore;
 
+import a2.CalculationTask;
+import a2.Matrix;
 import a2.conf.ViolatedMatrixMultiplicationRules;
-import a2.utils.CalculationTask;
-import a2.utils.Matrix;
 import a2.utils.TaskSplitter;
 
 /**
