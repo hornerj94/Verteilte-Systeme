@@ -14,7 +14,7 @@ import a2.utils.CalculationTask;
 public class Worker extends Thread {
     // ---------------------------------------------------------------------------------------------
 
-    /** The mutex semaphore for adding an element to the list. */
+    /** The mutex semaphore for adding an element to the list of the master. */
     private Semaphore semaphore;
     
     /** The master of the worker. */
@@ -26,9 +26,6 @@ public class Worker extends Thread {
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Start the execution of the thread and sets the semaphore and the master
-     * thread.
-     * 
      * @param semaphore The event semaphore
      * @param master    The master of the worker
      */
@@ -39,9 +36,10 @@ public class Worker extends Thread {
 
     // ---------------------------------------------------------------------------------------------
 
-    public void run() throws ViolatedMatrixMultiplicationRules {
-        while (!master.getCalculationTasks().isEmpty()) {
-            calculationTask = master.getCalculationTasks().pop();
+    @Override
+    public void run() {
+        while (!master.getUnfinishedCalculationTasks().isEmpty()) {
+            calculationTask = master.getUnfinishedCalculationTasks().pop();
                 calculateScalar(calculationTask.getFirstScalar(), calculationTask.getSecondScalar());
             
             try {
@@ -57,11 +55,10 @@ public class Worker extends Thread {
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Calculates the product of the two given scalars.
+     * Calculates the product of the two given scalars and set it to the calculation task.
      * 
      * @param firstScalar  The first scalar
      * @param secondScalar The second scalar
-     * @return The result of the calculation
      */
     public void calculateScalar(int[] firstScalar, int[] secondScalar) 
             throws ViolatedMatrixMultiplicationRules {
@@ -75,7 +72,6 @@ public class Worker extends Thread {
             }
         }
         calculationTask.setResult(calcResult);
-        calculationTask.setDone(true);
     }
 
     // ---------------------------------------------------------------------------------------------

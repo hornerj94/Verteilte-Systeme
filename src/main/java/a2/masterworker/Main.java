@@ -1,10 +1,5 @@
 package a2.masterworker;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.Semaphore;
-
-import a2.conf.ViolatedMatrixMultiplicationRules;
 import a2.utils.Matrix;
 
 public class Main {
@@ -12,11 +7,11 @@ public class Main {
 
     public static void main(String[] args) {
 
-        int [][] rowsA = {{  1, -2,  3,  4, -1, },
-                          { -2,  3,  0,  1,  2, },
-                          {  4, -1,  2,  1, -2, },
-                          { -2,  1,  3, -1,  3, },
-                          {  0,  2, -1,  2,  4, }};
+        int [][] rowsA = {{  1, -2,  3,  4, -1 },
+                          { -2,  3,  0,  1,  2 },
+                          {  4, -1,  2,  1, -2 },
+                          { -2,  1,  3, -1,  3 },
+                          {  0,  2, -1,  2,  4 }};
         
         int [][] rowsB = {{  2, -4, -1,  1, -2 },
                           { -1,  1, -2,  2,  1 },
@@ -33,8 +28,6 @@ public class Main {
         Master masterThread = new Master();
         masterThread.setMatrixA(matrixA);
         masterThread.setMatrixB(matrixB);
-        List<Worker> workers = new ArrayList<>();
-        Semaphore listSemaphore = new Semaphore(1);
         
         int threadAmount = 0;
         try {
@@ -42,12 +35,10 @@ public class Main {
         } catch (NumberFormatException e) {
             System.out.println("Der übergebene Parameter war keine Zahl oder hatte das "
                     + "falsche Format");
+        } catch (IndexOutOfBoundsException e2) { 
+            System.out.println("Es muss ein Parameter übergeben werden");
         }
-        
-        for (int i = 0; i < threadAmount; i++) {
-            workers.add(new Worker(listSemaphore, masterThread));
-        }
-        masterThread.setWorkers(workers);
+        masterThread.setThreadNumber(threadAmount);
         
         masterThread.start();     
         try {
@@ -60,7 +51,7 @@ public class Main {
         if (matrixC != null) {
             matrixC.printMatrix();
         }
-        
+      
     }
     
     // ---------------------------------------------------------------------------------------------
