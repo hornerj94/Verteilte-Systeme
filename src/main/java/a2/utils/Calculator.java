@@ -3,13 +3,13 @@ package a2.utils;
 import a2.conf.ViolatedMatrixMultiplicationRules;
 
 /**
- * Calculator utility for various calculating tasks.
+ * Utility class for various calculating tasks.
  * 
  * @author julian
  *
  */
-public class Calculator {
-    // ----------------------------------------------------------------------------------------------
+public final class Calculator {
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * Calculates the result of the multiplication of two matrices. Note that the
@@ -28,7 +28,7 @@ public class Calculator {
             System.out.println(e.getMessage());
             return null;
         }
-        
+
         Matrix resultMatrix = new Matrix();
         int rowNumberA = matrixA.getRowNumber();
         int columnNumberB = matrixB.getColumnNumber();
@@ -50,61 +50,32 @@ public class Calculator {
         }
         resultMatrix.setRows(arrayResult);
         return resultMatrix;
-        
+
     }
 
-    // ----------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
 
     /**
-     * Checks whether the matrices comply with the rules or not.
-     * 
-     * @param matrixA The first matrix
-     * @param matrixB The second matrix
-     * @return Whether the matrices comply with the rules or not
-     */ 
-    public static void checkMatrixMultiplicationRules(final Matrix matrixA, final Matrix matrixB) 
-            throws ViolatedMatrixMultiplicationRules{
-        int rowNumberA = matrixA.getRowNumber();
-        int columnNumberB = matrixB.getColumnNumber();
-        int[] scalarA = new int[columnNumberB];
-        int[] scalarB = new int[rowNumberA];
-        for (int i = 0; i < rowNumberA; i++) {
-
-            scalarA = getHorizontalScalar(i, matrixA);
-            for (int j = 0; j < columnNumberB; j++) {
-
-                scalarB = getVerticalScalar(j, matrixB);
-                if (scalarA.length != 0 && scalarB.length != 0) {
-                    calculateScalar(scalarA, scalarB);
-                }
-            }
-        }
-    }
-
-    // ----------------------------------------------------------------------------------------------
-
-    /**
-     * Returns an int array containing an scalar from the given matrix in the given
-     * row.
+     * Returns an array of int containing an scalar from the given matrix in the given row.
      * 
      * @param rowIndex The index to get the values from
      * @param matrix   The Matrix to get the scalar from
      * @return The horizontal scalar of the given column.
      */
-    private static int[] getHorizontalScalar(int rowIndex, Matrix matrix) {
+    public static int[] getHorizontalScalar(int rowIndex, Matrix matrix) {
         if (rowIndex >= 0 && rowIndex < matrix.getRowNumber()) {
             int[] resultSkalar = new int[matrix.getColumnNumber()];
 
             for (int j = 0; j < matrix.getColumnNumber(); j++) {
                 resultSkalar[j] = matrix.getElements()[rowIndex][j];
             }
-
             return resultSkalar;
 
         } else {
             return null;
 
         }
+
     }
 
     /**
@@ -115,7 +86,7 @@ public class Calculator {
      * @param matrix      The Matrix to get the scalar from
      * @return The vertical scalar of the given column.
      */
-    private static int[] getVerticalScalar(int columnIndex, Matrix matrix) {
+    public static int[] getVerticalScalar(int columnIndex, Matrix matrix) {
         if (columnIndex >= 0 && columnIndex < matrix.getColumnNumber()) {
             int[] resultSkalar = new int[matrix.getRowNumber()];
 
@@ -132,29 +103,48 @@ public class Calculator {
     }
 
     /**
-     * Calculates the product of the two given scalars.
+     * Calculates the result of the two given scalars.
      * 
      * @param firstScalar  The first scalar
      * @param secondScalar The second scalar
      * @return The result of the calculation
      */
-    private static int calculateScalar(int[] firstScalar, int[] secondScalar) 
+    public static int calculateScalar(int[] firstScalar, int[] secondScalar) 
             throws ViolatedMatrixMultiplicationRules {
         int result = 0;
 
+        if (firstScalar.length != secondScalar.length) {
+            throw new ViolatedMatrixMultiplicationRules();
+        }
+
         for (int i = 0; i < firstScalar.length; i++) {
             try {
-                result = result + (firstScalar[i] * secondScalar[i]);    
+                result = result + (firstScalar[i] * secondScalar[i]);
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new ViolatedMatrixMultiplicationRules("Die Regeln der Matrizenmultiplikation "
-                        + "wurden nicht eingehalten.\nBeachten sie dass bei einer "
-                        + "Matrizenmultiplikation die erste Matrix\ndieselbe Anzahl an Spalten "
-                        + "haben muss wie die Zeilen der zweiten Matrix");
+                throw new ViolatedMatrixMultiplicationRules();
             }
-        }            
+        }
 
         return result;
     }
 
-    // ----------------------------------------------------------------------------------------------
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Checks whether the matrices comply with the mathematical rules of multiplication or not.
+     * 
+     * @param matrixA The first matrix
+     * @param matrixB The second matrix
+     * @return Whether the matrices comply with the rules or not
+     */
+    public static void checkMatrixMultiplicationRules(final Matrix matrixA, final Matrix matrixB)
+            throws ViolatedMatrixMultiplicationRules {
+        if (matrixA.getColumnNumber() != matrixB.getRowNumber()) {
+            throw new ViolatedMatrixMultiplicationRules();
+            
+        }
+
+    }
+
+    // ---------------------------------------------------------------------------------------------
 }

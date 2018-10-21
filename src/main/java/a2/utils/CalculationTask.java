@@ -1,7 +1,7 @@
 package a2.utils;
 
 /**
- * Represents an task to calculate something.
+ * Represents an task to calculate two scalars.
  * 
  * @author julian
  *
@@ -24,11 +24,14 @@ public class CalculationTask {
     /** The result of the calculation. */
     private int result;
     
-    /** Whether the task is done or not. */
-    private boolean isDone;
-    
     // ---------------------------------------------------------------------------------------------
 
+    /**
+     * @param rowIndex The row index for the result matrix
+     * @param columnIndex The column index for the result matrix
+     * @param firstScalar The first scalar to calculate
+     * @param secondScalar The second scalar to calculate
+      */
     public CalculationTask(int rowIndex, int columnIndex, final int[] firstScalar, 
             final int[] secondScalar) {
         this.rowIndex = rowIndex;
@@ -91,25 +94,6 @@ public class CalculationTask {
      */
     public void setResult(final int result) {
         this.result = result;
-    }
-
-    /**
-     * Gets whether the task is calculated or not.
-     * 
-     * @return Whether the task is calculated or not
-     */
-    public boolean isDone() {
-        return isDone;
-    }
-
-    /**
-     * Sets whether the task is done or not.
-     * 
-     * @param result Whether the task is done or not
-     */
-
-    public void setDone(final boolean isDone) {
-        this.isDone = isDone;
     }
 
     // ---------------------------------------------------------------------------------------------

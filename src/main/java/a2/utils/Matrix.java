@@ -1,7 +1,7 @@
 package a2.utils;
 
 /**
- * Represents an matrix with an given amount of columns and rows.
+ * Represents an mathematical matrix.
  * 
  * @author julian
  *
@@ -11,58 +11,78 @@ public class Matrix {
 
     /** The row number of the matrix. */
     private int rowNumber;
-    
+
     /** The column number of the matrix. */
     private int columnNumber;
-    
+
     /** The elements of the matrix as an two dimensional array. */
     private int[][] elements;
-    
+
     // ---------------------------------------------------------------------------------------------
 
+    /**
+     * Gets the elements from the matrix.
+     * 
+     * @return The elements from the matrix
+     */
     public int[][] getElements() {
-        return elements;   
+        return elements;
     }
 
     /**
-     * Sets the content of the matrix and checks whether the given 
-     * values are valid or not.
+     * Sets the content of the matrix and checks whether the given values are valid
+     * or not.
      * 
      * @param elements The rows to set for the matrix as an array.
      */
-    public void setRows(final int[][] elements) {        
+    public void setRows(final int[][] elements) {
         if (elementsAreValid(elements) && !isEmpty(elements)) {
             this.elements = elements;
             rowNumber = elements.length;
-            columnNumber= elements[0].length;
-            
+            columnNumber = elements[0].length;
+
         } else {
             System.out.println("Die übergebene Matrix ist nicht korrekt oder leer");
         }
     }
 
+    /**
+     * Gets the row number from the matrix.
+     * 
+     * @return The row number from the matrix
+     */
     public int getRowNumber() {
         return rowNumber;
     }
 
+    /**
+     * Gets the column number from the matrix.
+     * 
+     * @return The column number from the matrix
+     */
     public int getColumnNumber() {
         return columnNumber;
     }
-       
+
     // ---------------------------------------------------------------------------------------------
 
+    /**
+     * Checks the given two dimensional array for being empty.
+     * 
+     * @param elements The elements to check 
+     * @return Whether the given elements are empty or not
+     */
     private boolean isEmpty(final int[][] elements) {
         if (elements.length != 0 && elements[0].length != 0) {
             return false;
         }
         return true;
-        
+
     }
-    
+
     /**
-     * Checks whether the given two dimensional array is valid or not.
-     * Valid means that all rows have the same length and all columns 
-     * have the same length.
+     * Checks whether the given two dimensional array is valid or not. Valid means
+     * that all rows have the same length and all columns have the same length.
      * 
      * @return Whether the elements are valid or not.
      */
@@ -73,12 +93,12 @@ public class Matrix {
             if (actualNumber == 0) {
                 actualNumber = elements[i].length;
                 oldNumber = elements[i].length;
-                
-            } else { 
+
+            } else {
                 actualNumber = elements[i].length;
                 if (actualNumber != oldNumber) {
                     return false;
-                    
+
                 }
             }
         }
@@ -88,6 +108,9 @@ public class Matrix {
 
     // ---------------------------------------------------------------------------------------------
 
+    /**
+     * Prints the elements of the matrix in the console.
+     */
     public void printMatrix() {
         if (elements != null && elements.length > 0) {
             for (int i = 0; i < elements.length; i++) {
@@ -100,11 +123,11 @@ public class Matrix {
                 }
                 System.out.println();
             }
-            
+
         } else {
             System.out.println("Die Matrix enthält keine Elemente");
         }
     }
-    
+
     // ---------------------------------------------------------------------------------------------
 }
