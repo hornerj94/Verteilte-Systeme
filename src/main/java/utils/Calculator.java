@@ -1,7 +1,7 @@
-package a2.utils;
+package utils;
 
 import a2.Matrix;
-import a2.conf.ViolatedMatrixMultiplicationRules;
+import conf.ViolatedMatrixMultiplicationRulesException;
 
 /**
  * Utility class for various calculating tasks.
@@ -49,7 +49,7 @@ public final class Calculator {
                 }
             }
         }
-        resultMatrix.setRows(arrayResult);
+        resultMatrix.setElements(arrayResult);
         return resultMatrix;
 
     }
@@ -57,7 +57,8 @@ public final class Calculator {
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Returns an array of int containing an scalar from the given matrix in the given row.
+     * Returns an array of int containing an scalar from the given matrix in the
+     * given row.
      * 
      * @param rowIndex The index to get the values from
      * @param matrix   The Matrix to get the scalar from
@@ -76,11 +77,10 @@ public final class Calculator {
             return null;
 
         }
-
     }
 
     /**
-     * Returns an int array containing an scalar from the given matrix in the given
+     * Returns an array of int containing an scalar from the given matrix in the given
      * column.
      * 
      * @param columnIndex The index to get the values from
@@ -94,7 +94,6 @@ public final class Calculator {
             for (int i = 0; i < matrix.getRowNumber(); i++) {
                 resultSkalar[i] = matrix.getElements()[i][columnIndex];
             }
-
             return resultSkalar;
 
         } else {
@@ -110,41 +109,40 @@ public final class Calculator {
      * @param secondScalar The second scalar
      * @return The result of the calculation
      */
-    public static int calculateScalar(int[] firstScalar, int[] secondScalar) 
-            throws ViolatedMatrixMultiplicationRules {
+    public static int calculateScalar(int[] firstScalar, int[] secondScalar)
+            throws ViolatedMatrixMultiplicationRulesException {
         int result = 0;
 
         if (firstScalar.length != secondScalar.length) {
-            throw new ViolatedMatrixMultiplicationRules();
+            throw new ViolatedMatrixMultiplicationRulesException();
         }
 
         for (int i = 0; i < firstScalar.length; i++) {
             try {
                 result = result + (firstScalar[i] * secondScalar[i]);
             } catch (ArrayIndexOutOfBoundsException e) {
-                throw new ViolatedMatrixMultiplicationRules();
+                throw new ViolatedMatrixMultiplicationRulesException();
             }
         }
-
         return result;
+
     }
 
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Checks whether the matrices comply with the mathematical rules of multiplication or not.
+     * Checks whether the matrices comply with the mathematical rules of
+     * multiplication or not.
      * 
      * @param matrixA The first matrix
      * @param matrixB The second matrix
      * @return Whether the matrices comply with the rules or not
      */
     public static void checkMatrixMultiplicationRules(final Matrix matrixA, final Matrix matrixB)
-            throws ViolatedMatrixMultiplicationRules {
+            throws ViolatedMatrixMultiplicationRulesException {
         if (matrixA.getColumnNumber() != matrixB.getRowNumber()) {
-            throw new ViolatedMatrixMultiplicationRules();
-            
+            throw new ViolatedMatrixMultiplicationRulesException();
         }
-
     }
 
     // ---------------------------------------------------------------------------------------------

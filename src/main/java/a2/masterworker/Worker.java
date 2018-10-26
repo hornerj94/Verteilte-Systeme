@@ -2,8 +2,8 @@ package a2.masterworker;
 
 import java.util.concurrent.Semaphore;
 
-import a2.CalculationTask;
-import a2.conf.ViolatedMatrixMultiplicationRules;
+import utils.CalculationTask;
+import utils.Calculator;
 
 /**
  * The class takes the role of an worker in the master-worker-paradigm.
@@ -40,7 +40,8 @@ public class Worker extends Thread {
     public void run() {
         while (!master.getUnfinishedCalculationTasks().isEmpty()) {
             calculationTask = master.getUnfinishedCalculationTasks().pop();
-                calculateScalar(calculationTask.getFirstScalar(), calculationTask.getSecondScalar());
+            Calculator.calculateScalar(calculationTask.getFirstScalar(), 
+                    calculationTask.getSecondScalar());
             
             try {
                 semaphore.acquire();
@@ -49,29 +50,8 @@ public class Worker extends Thread {
             }
             master.getFinishedCalculationTasks().add(calculationTask);
             semaphore.release();
+            
         }
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
-    /**
-     * Calculates the product of the two given scalars and set it to the calculation task.
-     * 
-     * @param firstScalar  The first scalar
-     * @param secondScalar The second scalar
-     */
-    public void calculateScalar(int[] firstScalar, int[] secondScalar) 
-            throws ViolatedMatrixMultiplicationRules {
-        int calcResult = 0;
-
-        for (int i = 0; i < firstScalar.length; i++) {
-            try {
-                calcResult = calcResult + (firstScalar[i] * secondScalar[i]);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new ViolatedMatrixMultiplicationRules();
-            }
-        }
-        calculationTask.setResult(calcResult);
     }
 
     // ---------------------------------------------------------------------------------------------

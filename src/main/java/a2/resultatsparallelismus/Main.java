@@ -21,34 +21,34 @@ public class Main {
                           {  2,  3, -3,  0,  0 }};
 
         Matrix matrixA = new Matrix();
-        matrixA.setRows(rowsA);
+        matrixA.setElements(rowsA);
         Matrix matrixB = new Matrix();
-        matrixB.setRows(rowsB);
-        Matrix matrixC = new Matrix();
-        
+        matrixB.setElements(rowsB);
+        Matrix matrixC = null;
+
         Master masterThread = new Master();
         masterThread.setMatrixA(matrixA);
         masterThread.setMatrixB(matrixB);
-        
+
         int threadAmount = 0;
         try {
             threadAmount = Integer.parseInt(args[0]);
         } catch (NumberFormatException e) {
             System.out.println("Der übergebene Parameter war keine Zahl oder hatte das "
                     + "falsche Format");
-        } catch (IndexOutOfBoundsException e2) { 
+        } catch (IndexOutOfBoundsException e2) {
             System.out.println("Es muss ein Parameter übergeben werden");
         }
         masterThread.setThreadNumber(threadAmount);
-        
-        masterThread.start();  
-        
+
+        masterThread.start();
+
         try {
             masterThread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        
+
         matrixC = masterThread.getMatrixC();
         if (matrixC != null) {
             matrixC.printMatrix();

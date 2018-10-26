@@ -3,8 +3,8 @@ package a2.resultatsparallelismus;
 import java.util.Stack;
 import java.util.concurrent.Semaphore;
 
-import a2.CalculationTask;
-import a2.conf.ViolatedMatrixMultiplicationRules;
+import utils.CalculationTask;
+import utils.Calculator;
 
 /**
  * The class takes the role of an worker in result-parallelism-paradigm.
@@ -18,10 +18,10 @@ public class Worker extends Thread {
     /** The mutex semaphore for adding an element to the list. */
     private Semaphore semaphore;
     
-    /** The master of the worker thread. */
-    private Master master;
+    /** The distributor of the work. */
+    private WorkDistributorThread master;
     
-    /** The current calculation task of the worker. */
+    /** The list of calculation task the worker has to finish. */
     private Stack<CalculationTask> unfinishedTasks;
 
     /** The current task the thread works on. */
@@ -37,21 +37,9 @@ public class Worker extends Thread {
      * @param unfinishedTasks The unfinishedTasks
      * @param resultMatrix The result matrix
      */
-    public Worker(final Semaphore semaphore, final Master master) {
+    public Worker(final Semaphore semaphore, final WorkDistributorThread master) {
         this.semaphore = semaphore;
         this.master = master;
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
-    @Override
-    public void run() {
-        while (!unfinishedTasks.isEmpty()) {            
-            currentTask = unfinishedTasks.pop();
-            calculateScalar(currentTask.getFirstScalar(), currentTask.getSecondScalar());
-            
-            writeCurrentResult();
-        }
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -67,30 +55,21 @@ public class Worker extends Thread {
     
     // ---------------------------------------------------------------------------------------------
 
-    /**
-     * Calculates the product of the two given scalars.
-     * 
-     * @param firstScalar  The first scalar
-     * @param secondScalar The second scalar
-     * @return The result of the calculation
-     */
-    public void calculateScalar(int[] firstScalar, int[] secondScalar) 
-            throws ViolatedMatrixMultiplicationRules {
-        int calcResult = 0;
-
-        for (int i = 0; i < firstScalar.length; i++) {
-            try {
-                calcResult = calcResult + (firstScalar[i] * secondScalar[i]);
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new ViolatedMatrixMultiplicationRules();
-            }
+    @Override
+    public void run() {
+        while (!unfinishedTasks.isEmpty()) {            
+            currentTask = unfinishedTasks.pop();
+            Calculator.calculateScalar(currentTask.getFirstScalar(), currentTask.getSecondScalar());
+            
+            writeCurrentResult();
         }
-        currentTask.setResult(calcResult);
-        
     }
 
     // ---------------------------------------------------------------------------------------------
 
+    /**
+     * Writes the current finished task to the finished calculation task list.
+     */
     private void writeCurrentResult() {
         try {
             semaphore.acquire();

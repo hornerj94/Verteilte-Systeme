@@ -5,10 +5,10 @@ import java.util.List;
 import java.util.Stack;
 import java.util.concurrent.Semaphore;
 
-import a2.CalculationTask;
 import a2.Matrix;
-import a2.conf.ViolatedMatrixMultiplicationRules;
-import a2.utils.TaskSplitter;
+import conf.ViolatedMatrixMultiplicationRulesException;
+import utils.CalculationTask;
+import utils.TaskSplitter;
 
 /**
  * An thread class which takes the role of the master in master-worker-paradigm.
@@ -54,22 +54,6 @@ public class Master extends Thread {
 
     // ---------------------------------------------------------------------------------------------
 
-    @Override
-    public void run() {
-        if (threadNumber > 0) {
-            Semaphore listSemaphore = new Semaphore(1);
-            for (int i = 0; i < threadNumber; i++) {
-                workers.add(new Worker(listSemaphore, this));
-            }
-
-            multiplyMatrix();
-        } else {
-            System.out.println("Die Anzahl der Threads muss mindestens 1 betragen");
-        }
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
     /**
      * Gets the stack of unfinished calculation tasks.
      * 
@@ -86,15 +70,6 @@ public class Master extends Thread {
      */
     public List<CalculationTask> getFinishedCalculationTasks() {
         return finishedCalculationTasks;
-    }
-
-    /**
-     * Sets the list of the workers from the master.
-     * 
-     * @param workers The list of the workers
-     */
-    public void setWorkers(final List<Worker> workers) {
-        this.workers = workers;
     }
     
     /**
@@ -136,6 +111,22 @@ public class Master extends Thread {
 
     // ---------------------------------------------------------------------------------------------
 
+    @Override
+    public void run() {
+        if (threadNumber > 0) {
+            Semaphore listSemaphore = new Semaphore(1);
+            for (int i = 0; i < threadNumber; i++) {
+                workers.add(new Worker(listSemaphore, this));
+            }
+            multiplyMatrix();
+        
+        } else {
+            System.out.println("Die Anzahl der Threads muss mindestens 1 betragen");
+        }
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
     /**
      * Calculates the result of matrix A and B and sets the result to C. 
      * Note that the multiplication of A x B will get another result then 
@@ -153,10 +144,16 @@ public class Master extends Thread {
             for (Worker worker : workers) {
                 worker.start();
             }
+            for (Worker worker : workers) {
+                try {
+                    worker.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            matrixC.setElements(collectResults(arrayResult));
 
-            matrixC.setRows(collectResults(arrayResult));
-
-        } catch (ViolatedMatrixMultiplicationRules e) {
+        } catch (ViolatedMatrixMultiplicationRulesException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -170,18 +167,11 @@ public class Master extends Thread {
      * @return An two dimensional array that contains the result of the calculation
      */
     private int[][] collectResults(final int[][] resultArray) {
-        for (Worker worker : workers) {
-            try {
-                worker.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
         for (CalculationTask tasks : finishedCalculationTasks) {
             resultArray[tasks.getRowIndex()][tasks.getColumnIndex()] = tasks.getResult();
         }
-
         return resultArray;
+    
     }
 
     // ---------------------------------------------------------------------------------------------

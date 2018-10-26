@@ -16,6 +16,7 @@ class Thread_1 extends Thread {
     
     }
 
+    @Override
     public void run() {
         System.out.println("Activity_1 running");
         sems[0].release();
@@ -41,6 +42,7 @@ class Thread_2 extends Thread {
    
     }
 
+    @Override
     public void run() {
         try {
             sems[0].acquire();
@@ -71,6 +73,7 @@ class Thread_3 extends Thread {
     
     }
 
+    @Override
     public void run() {
         try {
             sems[1].acquire();
@@ -101,6 +104,7 @@ class Thread_4 extends Thread {
     
     }
 
+    @Override
     public void run() {
         try {
             sems[2].acquire();
@@ -131,6 +135,7 @@ class Thread_5 extends Thread {
     
     }
 
+    @Override
     public void run() {
         try {
             sems[3].acquire();
@@ -162,6 +167,7 @@ class Thread_6 extends Thread {
     
     }
 
+    @Override
     public void run() {
         try {
             sems[5].acquire();
@@ -192,6 +198,7 @@ class Thread_7 extends Thread {
     
     }
 
+    @Override
     public void run() {
         try {
             sems[6].acquire();
@@ -217,13 +224,15 @@ public class EventSynchronization {
         for (int i = 0; i < sems.length; i++) {
             sems[i] = new Semaphore(0);
         }
-        new Thread_1(sems, "Thread_1");
-        new Thread_2(sems, "Thread_2");
-        new Thread_3(sems, "Thread_3");
-        new Thread_4(sems, "Thread_4");
         new Thread_5(sems, "Thread_5");
         new Thread_6(sems, "Thread_6");
+        new Thread_3(sems, "Thread_3");
+
         new Thread_7(sems, "Thread_7");
+
+        new Thread_1(sems, "Thread_1");
+        new Thread_2(sems, "Thread_2");
+        new Thread_4(sems, "Thread_4");
     }
 
     // ---------------------------------------------------------------------------------------------

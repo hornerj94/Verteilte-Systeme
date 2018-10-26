@@ -5,18 +5,20 @@ import java.util.List;
 import java.util.Stack;
 import java.util.concurrent.Semaphore;
 
-import a2.CalculationTask;
 import a2.Matrix;
-import a2.conf.ViolatedMatrixMultiplicationRules;
-import a2.utils.TaskSplitter;
+import conf.ViolatedMatrixMultiplicationRulesException;
+import utils.CalculationTask;
+import utils.TaskSplitter;
 
 /**
- * An thread class which takes the role of the master in result-parallelism-paradigm.
+ * An thread class which has the task to calculate an matrix. The thread split
+ * the task in one or more task sublists and set them to the corresponding
+ * workers in result-parallelism-paradigm.
  * 
  * @author julian
  *
  */
-public class Master extends Thread {
+public class WorkDistributorThread extends Thread {
     // ---------------------------------------------------------------------------------------------
 
     /** The stack of unfinished calculation tasks. */
@@ -30,7 +32,7 @@ public class Master extends Thread {
 
     /** The amount of threads to start. */
     private int threadNumber;
-    
+
     /** The first matrix to calculate. */
     private Matrix matrixA;
 
@@ -45,28 +47,10 @@ public class Master extends Thread {
     /**
      * Default constructor.
      */
-    public Master() {
+    public WorkDistributorThread() {
         finishedCalculationTasks = new ArrayList<>();
         unfinishedCalculationTasks = new Stack<>();
         workers = new ArrayList<>();
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
-    @Override
-    public void run() {
-        if (threadNumber > 0) {
-            Semaphore listSemaphore = new Semaphore(1);
-            for (int i = 0; i < threadNumber; i++) {
-                workers.add(new Worker(listSemaphore, this));
-            }            
-            
-            multiplyMatrix();
-
-        } else {
-            System.out.println("Die Anzahl der Threads muss mindestens 1 betragen");
-        }
-    
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -97,7 +81,7 @@ public class Master extends Thread {
     public void setWorkers(final List<Worker> workers) {
         this.workers = workers;
     }
-    
+
     /**
      * Sets the amount of workers.
      * 
@@ -137,11 +121,29 @@ public class Master extends Thread {
 
     // ---------------------------------------------------------------------------------------------
 
+    @Override
+    public void run() {
+        if (threadNumber > 0) {
+            Semaphore listSemaphore = new Semaphore(1);
+            for (int i = 0; i < threadNumber; i++) {
+                workers.add(new Worker(listSemaphore, this));
+            }
+
+            multiplyMatrix();
+
+        } else {
+            System.out.println("Die Anzahl der Threads muss mindestens 1 betragen");
+        }
+
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
     /**
-     * Calculates the result of matrix A and B and sets the result to C. 
-     * Note that the multiplication of A x B will get another result then 
-     * the multiplication of B x A, because the commutative law is not 
-     * valid for the multiplication of matrices.
+     * Calculates the result of matrix A and B and sets the result to C. Note that
+     * the multiplication of A x B will get another result then the multiplication
+     * of B x A, because the commutative law is not valid for the multiplication of
+     * matrices.
      */
     public void multiplyMatrix() {
         try {
@@ -149,18 +151,18 @@ public class Master extends Thread {
             int columnNumberB = matrixB.getColumnNumber();
             int[][] arrayResult = new int[rowNumberA][columnNumberB];
             unfinishedCalculationTasks = TaskSplitter.splitTasks(matrixA, matrixB);
-            
-            Stack<Stack<CalculationTask>> sublists =
-                    TaskSplitter.createTaskSublists(unfinishedCalculationTasks, threadNumber);
-            
+
+            Stack<Stack<CalculationTask>> sublists = TaskSplitter.createTaskSublists(unfinishedCalculationTasks,
+                    threadNumber);
+
             for (Worker worker : workers) {
                 worker.setUnfinishedTasks(sublists.pop());
                 worker.start();
             }
-            
-            matrixC.setRows(collectResults(arrayResult));
 
-        } catch (ViolatedMatrixMultiplicationRules e) {
+            matrixC.setElements(collectResults(arrayResult));
+
+        } catch (ViolatedMatrixMultiplicationRulesException e) {
             System.out.println(e.getMessage());
         }
     }
@@ -181,12 +183,12 @@ public class Master extends Thread {
                 e.printStackTrace();
             }
         }
-        
+
         for (CalculationTask tasks : finishedCalculationTasks) {
             resultArray[tasks.getRowIndex()][tasks.getColumnIndex()] = tasks.getResult();
         }
         return resultArray;
-        
+
     }
 
     // ---------------------------------------------------------------------------------------------

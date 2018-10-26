@@ -20,9 +20,9 @@ public class Main {
                           {  2,  3, -3,  0,  0 }};
 
         Matrix matrixA = new Matrix();
-        matrixA.setRows(rowsA);
+        matrixA.setElements(rowsA);
         Matrix matrixB = new Matrix();
-        matrixB.setRows(rowsB);
+        matrixB.setElements(rowsB);
         Matrix matrixC = null;
         
         Master masterThread = new Master();
@@ -51,7 +51,6 @@ public class Main {
         if (matrixC != null) {
             matrixC.printMatrix();
         }
-      
     }
     
     // ---------------------------------------------------------------------------------------------

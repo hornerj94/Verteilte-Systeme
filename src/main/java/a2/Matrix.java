@@ -35,7 +35,7 @@ public class Matrix {
      * 
      * @param elements The rows to set for the matrix as an array.
      */
-    public void setRows(final int[][] elements) {
+    public void setElements(final int[][] elements) {
         if (elementsAreValid(elements) && !isEmpty(elements)) {
             this.elements = elements;
             rowNumber = elements.length;
