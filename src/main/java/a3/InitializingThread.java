@@ -1,10 +1,6 @@
 package a3;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.Semaphore;
-
-import conf.NumberNotSupportedException;
 
 /**
  * An thread class that initialize the calculation of the binomial coefficient.
@@ -15,40 +11,41 @@ import conf.NumberNotSupportedException;
 public class InitializingThread extends Thread {
     // ---------------------------------------------------------------------------------------------
 
-    /** The list of finished calculation tasks. */
-    private List<Long> results;
-
-    /** The initial worker. */
-    private RecursiveThread firstRecursiveThread;
+    /** Pascals triangle as an List of ArrayLists, the first list represents the rows 
+     * of the triangle and the second list represents the columns. */
+    private int[][] pascalsTriangle;
 
     /** The amount of total elements n. */
-    private long n;
+    private int n;
 
     /** The amount to take out of n. */
-    private long k;
+    private int k;
     
     /** The number of possible combinations. */
-    private long solution;
+    private int solution;
 
+    /** The mutex semaphore for pascals triangle. */
+    private Semaphore listSemaphore;
+    
     // ---------------------------------------------------------------------------------------------
 
     /**
      * Default constructor.
      */
     public InitializingThread() {
-        results = new ArrayList<>();
+        listSemaphore = new Semaphore(1);
 
     }
 
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Gets the list of finished calculation tasks.
+     * Gets pascals triangle as an List of ArrayLists.
      * 
-     * @return The list of finished calculation tasks.
+     * @return Pascals triangle as an List of ArrayLists.
      */
-    public List<Long> getResults() {
-        return results;
+    public int[][] getPascalsTriangle() {
+        return pascalsTriangle;
     }
 
     /**
@@ -56,7 +53,7 @@ public class InitializingThread extends Thread {
      * 
      * @return The total amount of the calculation.
      */
-    public long getN() {
+    public int getN() {
         return n;
     }
 
@@ -65,9 +62,11 @@ public class InitializingThread extends Thread {
      *
      * @param n The total amount of the calculation
      */
-    public void setN(final long n) {
+    public void setN(final int n) {
         if (n < 0) {
             System.out.println("n darf nicht kleiner als 0 sein");
+        } else if (n > 21) {
+            System.out.println("n darf nicht größer sein als 21");
         } else {
             this.n = n;
         }
@@ -78,7 +77,7 @@ public class InitializingThread extends Thread {
      * 
      * @return The amount to calculate the possible combinations k.
      */
-    public long getK() {
+    public int getK() {
         return k;
     }
 
@@ -87,7 +86,7 @@ public class InitializingThread extends Thread {
      *
      * @param k The amount to calculate the possible combinations k.
      */
-    public void setK(final long k) {
+    public void setK(final int k) {
         if (k < 0) {
             System.out.println("k darf nicht kleiner als 0 sein");
         } else {
@@ -100,7 +99,7 @@ public class InitializingThread extends Thread {
      * 
      * @return The number of possible combinations.
      */
-    public long getSolution() {
+    public int getSolution() {
         return solution;
     }
 
@@ -108,68 +107,32 @@ public class InitializingThread extends Thread {
 
     @Override
     public void run() {
-        calculateBinomialCoefficient();
+        if (k > n) {
+            solution = 0;
+        } else if (k == n) {
+            solution = 1;
+        } else if (k == 1) {
+            solution = n;
+        } else {
+            pascalsTriangle = new int[n + 1][k + 1];
+            calculateBinomialCoefficient();
+        }
     }
 
     // ---------------------------------------------------------------------------------------------
-
+   
     /**
      * Calculates the binomial coefficient and sets the solution of the calculation.
      */
-    private void calculateBinomialCoefficient() {
-        Semaphore listSemaphore = new Semaphore(1);
-                
-        if (n < k) {
-            System.out.println("Der Parameter n muss größer sein als der Parameter k");
-        } else if (k == 0) {
-            solution = 1;
-        } else {
-            firstRecursiveThread = new RecursiveThread(n, k, listSemaphore, this);
+    private void calculateBinomialCoefficient() {             
+        RecursiveThread recursiveThread = new RecursiveThread(n, k, listSemaphore, this);
 
-            try {
-                firstRecursiveThread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            solution = multiplyResults() / calculateFactorial(k);
-
+        try {
+            recursiveThread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-    }
-
-    /**
-     * Collects the results of the workers multiplies them and return the result.
-     * 
-     * @return The result of the calculation
-     */
-    private long multiplyResults() {
-        long workerResult = 0;
-        for (Long value : results) {
-            if (workerResult != 0) {
-                workerResult = workerResult * value;
-            } else {
-                workerResult = value;
-            }
-        }
-        return workerResult;
-    
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
-    /**
-     * Calculates the factorial number.
-     * 
-     * @param number The number to calculate the factorial
-     * @return The result of the calculation
-     */
-    private long calculateFactorial(final long number) throws NumberNotSupportedException {
-        if (number == 0) {
-            return 1;
-        } else if (number > 0) {
-            return number * calculateFactorial(number - 1);
-        } else {
-            throw new NumberNotSupportedException();
-        }
+        solution = pascalsTriangle[n - 1][k - 1] + pascalsTriangle[n - 1][k];
     }
 
     // ---------------------------------------------------------------------------------------------

@@ -19,32 +19,31 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        long n = 0;
-        long k = 0;
+        int n = 0;
+        int k = 0;
         try {
-            n = Long.parseLong(args[0]);
-            k = Long.parseLong(args[1]);
+            n = Integer.parseInt(args[0]);
+            k = Integer.parseInt(args[1]);
         } catch (NumberFormatException e) {
             System.out.println("Einer der Parameter war keine Zahl oder hatte das falsche Format");
         } catch (IndexOutOfBoundsException e2) { 
             System.out.println("Es muss ein Parameter übergeben werden");
         }
 
-        InitializingThread masterThread = new InitializingThread();        
-        masterThread.setN(n);
-        masterThread.setK(k);
+        InitializingThread initializingThread = new InitializingThread();        
+        initializingThread.setN(n);
+        initializingThread.setK(k);
         
-        masterThread.start();     
+        initializingThread.start();     
         try {
-            masterThread.join();
+            initializingThread.join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
         
-        long binomialCoefficient = masterThread.getSolution();
+        long binomialCoefficient = initializingThread.getSolution();
         System.out.println("Der Binomialkoeffizient ist: " + binomialCoefficient);;
 
-      
     }
     
     // ---------------------------------------------------------------------------------------------
