@@ -107,16 +107,7 @@ public class InitializingThread extends Thread {
 
     @Override
     public void run() {
-        if (k > n) {
-            solution = 0;
-        } else if (k == n) {
-            solution = 1;
-        } else if (k == 1) {
-            solution = n;
-        } else {
-            pascalsTriangle = new int[n + 1][k + 1];
             calculateBinomialCoefficient();
-        }
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -125,14 +116,24 @@ public class InitializingThread extends Thread {
      * Calculates the binomial coefficient and sets the solution of the calculation.
      */
     private void calculateBinomialCoefficient() {             
-        RecursiveThread recursiveThread = new RecursiveThread(n, k, listSemaphore, this);
-
-        try {
-            recursiveThread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        if (k > n) {
+            solution = 0;
+        } else if (k == n) {
+            solution = 1;
+        } else if (k == 1) {
+            solution = n;
+        } else {
+            pascalsTriangle = new int[n + 1][k + 1];
+            RecursiveThread recursiveThread = new RecursiveThread(n, k, listSemaphore, this);
+    
+            try {
+                recursiveThread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            solution = pascalsTriangle[n - 1][k - 1] + pascalsTriangle[n - 1][k];
+            
         }
-        solution = pascalsTriangle[n - 1][k - 1] + pascalsTriangle[n - 1][k];
     }
 
     // ---------------------------------------------------------------------------------------------

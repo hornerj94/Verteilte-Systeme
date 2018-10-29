@@ -18,8 +18,7 @@ public class RecursiveThread extends Thread {
     private int k;
 
     /**
-     * The mutex semaphore for adding an element to the list of the initializing
-     * thread.
+     * The mutex semaphore for adding an element to pascals triangle.
      */
     private Semaphore pascalsSemaphore;
 
@@ -34,8 +33,8 @@ public class RecursiveThread extends Thread {
      * 
      * @param n                 The first value to calculate
      * @param k                 The second value to calculate
-     * @param semaphore         The event semaphore
-     * @param initializerThread The master of the worker
+     * @param semaphore         The mutex semaphore
+     * @param initializerThread The initializier
      */
     public RecursiveThread(final int n, final int k, final Semaphore semaphore,
             final InitializingThread initializerThread) {
@@ -59,9 +58,7 @@ public class RecursiveThread extends Thread {
     private void calculateBinomialCoeffizient(final int n, final int k) {
         try {
             if (k == 0 || n == k) {
-                pascalsSemaphore.acquire();
                 initializerThread.getPascalsTriangle()[n][k] = 1;
-                pascalsSemaphore.release();
             } else {
                 RecursiveThread firstRecursiveThread = 
                         new RecursiveThread(n - 1, k - 1, pascalsSemaphore, initializerThread);
@@ -71,11 +68,9 @@ public class RecursiveThread extends Thread {
                 firstRecursiveThread.join();
                 secondRecursiveThread.join();
 
-                pascalsSemaphore.acquire();
                 initializerThread.getPascalsTriangle()[n][k] = 
                         initializerThread.getPascalsTriangle()[n - 1][k - 1]
                       + initializerThread.getPascalsTriangle()[n - 1][k];
-                pascalsSemaphore.release();
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
