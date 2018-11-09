@@ -1,7 +1,5 @@
 package a3;
 
-import java.util.concurrent.Semaphore;
-
 /**
  * An thread class that initialize the calculation of the binomial coefficient.
  * 
@@ -11,8 +9,8 @@ import java.util.concurrent.Semaphore;
 public class InitializingThread extends Thread {
     // ---------------------------------------------------------------------------------------------
 
-    /** Pascals triangle as an List of ArrayLists, the first list represents the rows 
-     * of the triangle and the second list represents the columns. */
+    /** Pascals triangle as two dimensional array, the first array represents the rows 
+     * of the triangle and the second array represents the columns. */
     private int[][] pascalsTriangle;
 
     /** The amount of total elements n. */
@@ -23,26 +21,13 @@ public class InitializingThread extends Thread {
     
     /** The number of possible combinations. */
     private int solution;
-
-    /** The mutex semaphore for pascals triangle. */
-    private Semaphore listSemaphore;
     
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Default constructor.
-     */
-    public InitializingThread() {
-        listSemaphore = new Semaphore(1);
-
-    }
-
-    // ---------------------------------------------------------------------------------------------
-
-    /**
-     * Gets pascals triangle as an List of ArrayLists.
+     * Gets pascals triangle as two dimensional array.
      * 
-     * @return Pascals triangle as an List of ArrayLists.
+     * @return Pascals triangle as two dimensional array.
      */
     public int[][] getPascalsTriangle() {
         return pascalsTriangle;
@@ -124,7 +109,7 @@ public class InitializingThread extends Thread {
             solution = n;
         } else {
             pascalsTriangle = new int[n + 1][k + 1];
-            RecursiveThread recursiveThread = new RecursiveThread(n, k, listSemaphore, this);
+            RecursiveThread recursiveThread = new RecursiveThread(n, k, this);
     
             try {
                 recursiveThread.join();

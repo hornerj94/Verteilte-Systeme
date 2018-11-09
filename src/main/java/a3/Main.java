@@ -41,7 +41,7 @@ public class Main {
             e.printStackTrace();
         }
         
-        long binomialCoefficient = initializingThread.getSolution();
+        int binomialCoefficient = initializingThread.getSolution();
         System.out.println("Der Binomialkoeffizient ist: " + binomialCoefficient);;
 
     }
