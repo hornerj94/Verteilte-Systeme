@@ -17,6 +17,11 @@ public class WorkerThread extends Thread {
 
     // ---------------------------------------------------------------------------------------------
 
+    /**
+     * Creates an worker thread with the given parameters.
+     * 
+     * @param socket The socket that holds the client connection
+     */
     public WorkerThread(final Socket socket) {
         this.socket = socket;
     }
@@ -56,7 +61,7 @@ public class WorkerThread extends Thread {
                     
                 }
                 break;
-            case OPEN_NEW_TOPIC:
+            case OPEN_NEW_TOPIC_CLIENT:
                 if (Server.checkTopicExists(topic)) {
                     oos.writeObject("Die Umfrage existiert bereits");
                     

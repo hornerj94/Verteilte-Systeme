@@ -9,9 +9,8 @@ public class Main {
     // ---------------------------------------------------------------------------------------------
 
     public static void main(String[] args) {
-        ServerCommunicator serverCommunicator = new ServerCommunicator();
-        serverCommunicator.listen(PORT);
-        
+        new ServerCommunicator(PORT).start();
+                
     }
 
     // ---------------------------------------------------------------------------------------------

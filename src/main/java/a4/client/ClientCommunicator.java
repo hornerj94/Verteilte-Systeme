@@ -26,11 +26,18 @@ public class ClientCommunicator {
 
 	// ---------------------------------------------------------------------------------------------
 
-	public void setCommunicationParameters(final String server, final int port) {
-			this.server = server;
-			this.port = port;
+	/**
+	 * Creates an client communicator with the given parameters.
+	 * 
+	 * @param server The server address
+	 * @param port The port to request on the server
+	 */
+	public ClientCommunicator(final String server, final int port) {
+        this.server = server;
+        this.port = port;
+    }
 
-	}
+	// ---------------------------------------------------------------------------------------------
 
 	public void closeConnection() {
 		try {
@@ -72,7 +79,7 @@ public class ClientCommunicator {
 			Socket socket = new Socket(server, port);
 			
 			oos = new ObjectOutputStream(socket.getOutputStream());
-			oos.writeObject(ClientType.OPEN_NEW_TOPIC);
+			oos.writeObject(ClientType.OPEN_NEW_TOPIC_CLIENT);
 			oos.writeObject(topic);
 
 			ois = new ObjectInputStream(socket.getInputStream());

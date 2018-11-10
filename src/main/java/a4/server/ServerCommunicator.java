@@ -10,23 +10,30 @@ import java.net.Socket;
  * @author julian
  *
  */
-public class ServerCommunicator {
+public class ServerCommunicator extends Thread {
     // ---------------------------------------------------------------------------------------------
 
-    /** Whether the server is to be terminated or not. */
-    private boolean isTerminated = false;
-
+    /** The port of the server to wait for the client requests. */
+    private int port;
+    
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Sets the server to listen to the given port.
+     * Creates an server communicator object with the given parameter.
      * 
-     * @param port The port to listen to
+     * @param port The port of the server
      */
-    public void listen(final int port) {
+    public ServerCommunicator(final int port) {
+        this.port = port;
+    }
+    
+    // ---------------------------------------------------------------------------------------------
+
+    @Override
+    public void run() {
         try {
             ServerSocket serverSocket = new ServerSocket(port);
-            while (!isTerminated) {
+            while (!isInterrupted()) {
                 Socket newSock = serverSocket.accept();
                 new WorkerThread(newSock).start();
 
@@ -37,13 +44,6 @@ public class ServerCommunicator {
             e.printStackTrace();
         }
     }
-
-    /**
-     * Stops the server.
-     */
-    public void stop() {
-        isTerminated = true;
-    }
-
+    
     // ---------------------------------------------------------------------------------------------
 }
