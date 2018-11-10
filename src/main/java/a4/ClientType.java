@@ -13,7 +13,7 @@ public enum ClientType {
     
     CURRENT_STATE_CLIENT,
     
-    OPEN_NEW_TOPIC_CLIENT;
+    NEW_TOPIC_CLIENT;
     
     // ---------------------------------------------------------------------------------------------
 }

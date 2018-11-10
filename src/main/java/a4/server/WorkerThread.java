@@ -61,7 +61,7 @@ public class WorkerThread extends Thread {
                     
                 }
                 break;
-            case OPEN_NEW_TOPIC_CLIENT:
+            case NEW_TOPIC_CLIENT:
                 if (Server.checkTopicExists(topic)) {
                     oos.writeObject("Die Umfrage existiert bereits");
                     

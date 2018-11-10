@@ -1,13 +1,8 @@
 package a4.client;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-
 import a4.ClientType;
 import a4.Vote;
 import a4.VoteType;
-import a4.server.Server;
 
 public class Client extends Thread {
 	// ---------------------------------------------------------------------------------------------
@@ -27,29 +22,36 @@ public class Client extends Thread {
 	// ---------------------------------------------------------------------------------------------
 
 	/**
-	 * Creates the client with the given parameters.
-	 * 
-	 * @param clientCommunicator
-	 *            The client communicator of the client
-	 */
-	public Client(ClientCommunicator clientCommunicator) {
-		this.clientCommunicator = clientCommunicator;
+     * Creates the client with the given parameters.
+     * 
+     * @param clientCommunicator The client communicator of the client
+     * @param clientType The type of the client
+     * @param topic The topic of the client
+     */
+    public Client(final ClientCommunicator clientCommunicator, final ClientType clientType, 
+            final String topic) {
+        this.clientCommunicator = clientCommunicator;
+        this.clientType = clientType;
+        this.topic = topic;
 
-	}
+    }
 
-	// ---------------------------------------------------------------------------------------------
+    /**
+     * Creates the client with the given parameters.
+     * 
+     * @param clientCommunicator The client communicator of the client
+     * @param clientType The type of the client
+     * @param topic The topic of the client
+     * @param voteType The type of the vote
+     */
+    public Client(final ClientCommunicator clientCommunicator, final ClientType clientType, 
+            final String topic, final VoteType voteType) {
+        this.clientCommunicator = clientCommunicator;
+        this.clientType = clientType;
+        this.topic = topic;
+        this.voteType = voteType;
 
-	public void setClientType(final ClientType clientType) {
-		this.clientType = clientType;
-	}
-
-	public void setTopic(String topic) {
-		this.topic = topic;
-	}
-
-	public void setVoteType(final VoteType voteType) {
-		this.voteType = voteType;
-	}
+    }
 
 	// ---------------------------------------------------------------------------------------------
 
@@ -64,22 +66,18 @@ public class Client extends Thread {
 			if (vote.isExisting()) {
 				printVote(vote);
 			} else {
-				System.out.println("Zu der Umfrage " + topic + " wurde kein Eintrag gefunden");
+				System.out.println("Zu der Umfrage " + topic + " wurde kein Eintrag gefunden\n\n");
 			}
 			break;
 
 		case VOTING_CLIENT:
 			result = clientCommunicator.toVote(topic, voteType);
-
-			System.out.println(result);
-			System.out.println("\n");
+            System.out.println(result + "\n\n");
 			break;
 
-		case OPEN_NEW_TOPIC:
+		case NEW_TOPIC_CLIENT:
 			result = clientCommunicator.addTopic(topic);
-
-			System.out.println(result);
-			System.out.println("\n");
+			System.out.println(result + "\n\n");
 			break;
 
 		}
@@ -90,8 +88,7 @@ public class Client extends Thread {
 	/**
 	 * Prints the given vote on the console.
 	 * 
-	 * @param vote
-	 *            The vote to print
+	 * @param vote The vote to print
 	 */
 	private void printVote(final Vote vote) {
 		System.out.println("Aktueller Stand der Umfrage: " + vote.getTopic() + "\n");

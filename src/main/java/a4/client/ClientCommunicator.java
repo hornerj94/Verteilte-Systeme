@@ -79,7 +79,7 @@ public class ClientCommunicator {
 			Socket socket = new Socket(server, port);
 			
 			oos = new ObjectOutputStream(socket.getOutputStream());
-			oos.writeObject(ClientType.OPEN_NEW_TOPIC_CLIENT);
+			oos.writeObject(ClientType.NEW_TOPIC_CLIENT);
 			oos.writeObject(topic);
 
 			ois = new ObjectInputStream(socket.getInputStream());
