@@ -13,43 +13,37 @@ import java.net.Socket;
 public class ServerCommunicator {
     // ---------------------------------------------------------------------------------------------
 
-    /** The port of the server to send the incoming messages. */
-    private final static int PORT = 7825;
+    /** Whether the server is to be terminated or not. */
+    private boolean isTerminated = false;
 
-    /** The socket of the server that waits for new incoming messages. */
-    private static ServerSocket serverSocket;
-
-    /** The functional part of the server. */
-    private static Server server;
-    
-    // =============================================================================================
-
-    public ServerCommunicator() {
-        try {
-            serverSocket = new ServerSocket(PORT);
-            server = new Server();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-    
     // ---------------------------------------------------------------------------------------------
 
-    public void listen() {
+    /**
+     * Sets the server to listen to the given port.
+     * 
+     * @param port The port to listen to
+     */
+    public void listen(final int port) {
         try {
-            while (true) {
+            ServerSocket serverSocket = new ServerSocket(port);
+            while (!isTerminated) {
                 Socket newSock = serverSocket.accept();
                 new WorkerThread(newSock).start();
-                
+
             }
+            serverSocket.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
-    // ---------------------------------------------------------------------------------------------
 
-    
+    /**
+     * Stops the server.
+     */
+    public void stop() {
+        isTerminated = true;
+    }
+
     // ---------------------------------------------------------------------------------------------
 }

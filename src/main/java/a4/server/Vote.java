@@ -26,8 +26,21 @@ public class Vote implements Serializable {
     /** The abstention count of the vote. */
     private int abstention;
 
+    /** Whether the vote already exists or not. */
+    private boolean exists;
+    
     // ---------------------------------------------------------------------------------------------
 
+    /**
+     * Default constructor
+     */
+    public Vote() { }
+
+    /**
+     * Creates an vote with the given parameters.
+     * 
+     * @param topic The topic of the vote
+     */
     public Vote(final String topic) {
         this.topic = topic;
         this.approval =  0;
@@ -82,6 +95,24 @@ public class Vote implements Serializable {
         return abstention;
     }
 
+    /**
+     * Gets whether the vote exists or not.
+     * 
+     * @return Whether the vote exists or not
+     */
+    public boolean isExists() {
+        return exists;
+    }
+
+    /**
+     * Sets whether the vote exists or not.
+     * 
+     * @param Whether the vote exists or not
+     */
+    public void setExists(boolean exists) {
+        this.exists = exists;
+    }
+    
     // ---------------------------------------------------------------------------------------------
 
     public void addApproval() {

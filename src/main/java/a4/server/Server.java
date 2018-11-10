@@ -16,14 +16,14 @@ import java.util.List;
  * @author julian
  *
  */
-public final class Server {
+public class Server {
     // ---------------------------------------------------------------------------------------------
 
     /** The path to the voteResults file. */
-    private static String path = "src/main/java/a4/server/voteResults";
+    private final static String path = "src/main/java/a4/server/voteResults";
 
     /** The file that contains the vote results. */
-    private static File voteResults;
+    private static File voteResults = new File(path);
 
     // =============================================================================================
 
@@ -31,7 +31,6 @@ public final class Server {
      * Creates the file that contains the vote results.
      */
     public static void createFileIfNotExist() {
-        voteResults = new File(path);
         try {
             voteResults.createNewFile();
         } catch (IOException e) {
@@ -42,28 +41,34 @@ public final class Server {
 
     // ---------------------------------------------------------------------------------------------
 
+    /**
+     * Check whether the topic exists or not.
+     * 
+     * @param topic The topic to check
+     * @return Whether the topic exists or not
+     */
     public static boolean checkTopicExists(final String topic) {
         for (Vote currentVote : readCurrentVoteObjects()) {
             if (currentVote.getTopic().equals(topic)) {
                 return true;
-                
+
             }
         }
         return false;
-        
+
     }
-    
+
     // ---------------------------------------------------------------------------------------------
 
     /**
      * Adds an vote of the given type to the given topic.
      * 
-     * @param topic The topic to add an vote
+     * @param topic    The topic to add an vote
      * @param voteType The type of the vote
      */
     public static void addVoteToTopic(final String topic, final VoteType voteType) {
         List<Vote> votes = readCurrentVoteObjects();
-        
+
         for (Vote vote : votes) {
             if (vote.getTopic().equals(topic)) {
                 switch (voteType) {
@@ -78,10 +83,10 @@ public final class Server {
                     break;
                 }
                 writeVoteObjects(votes);
-       
+
             }
         }
-        
+
     }
 
     /**
@@ -92,7 +97,7 @@ public final class Server {
      */
     public static Vote getCurrentState(final String topic) {
         Vote vote = null;
-        
+
         for (Vote currentVote : readCurrentVoteObjects()) {
             if (currentVote.getTopic().equals(topic)) {
                 vote = currentVote;
@@ -100,9 +105,9 @@ public final class Server {
             }
         }
         return vote;
-        
+
     }
-    
+
     /**
      * Adds a new topic to the file but only if it not exist yet.
      * 
@@ -111,14 +116,14 @@ public final class Server {
     public static void addNewTopic(final String topic) {
         List<Vote> votes = readCurrentVoteObjects();
         for (Vote vote : votes) {
-            if(vote.getTopic().equals(topic)) {
+            if (vote.getTopic().equals(topic)) {
                 return;
-            
+
             }
         }
         votes.add(new Vote(topic));
         writeVoteObjects(votes);
-        
+
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -128,7 +133,7 @@ public final class Server {
      * 
      * @param votes The votes to write to the file
      */
-    private static void writeVoteObjects(final List<Vote> votes) {
+    private static synchronized void writeVoteObjects(final List<Vote> votes) {
         try {
             FileOutputStream fos = new FileOutputStream(voteResults);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -143,7 +148,7 @@ public final class Server {
             e.printStackTrace();
         }
     }
-    
+
     /**
      * Read the current votes from the file and return them as a list.
      * 

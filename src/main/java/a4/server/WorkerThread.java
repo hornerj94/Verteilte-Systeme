@@ -30,11 +30,14 @@ public class WorkerThread extends Thread {
 
             switch (clientType) {
             case CURRENT_STATE_CLIENT:
+                
                 if (Server.checkTopicExists(topic)) {
                     oos.writeObject(Server.getCurrentState(topic));
                     
                 } else {
-                    oos.writeObject("Die angegebene Umfrage existiert nicht");
+                    Vote vote = new Vote();
+                    vote.setExists(false);
+                    oos.writeObject(vote);
 
                 }
                 break;
