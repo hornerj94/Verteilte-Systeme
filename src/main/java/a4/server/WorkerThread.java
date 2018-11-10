@@ -45,7 +45,6 @@ public class WorkerThread extends Thread {
 
                 }
                 break;
-                
             case VOTING_CLIENT:
                 if (Server.checkTopicExists(topic)) {
                     VoteType voteType = (VoteType) ois.readObject();
@@ -57,7 +56,6 @@ public class WorkerThread extends Thread {
                     
                 }
                 break;
-                
             case OPEN_NEW_TOPIC:
                 if (Server.checkTopicExists(topic)) {
                     oos.writeObject("Die Umfrage existiert bereits");
@@ -68,7 +66,6 @@ public class WorkerThread extends Thread {
 
                 }
                 break;
-                
             }
 
             oos.flush();

@@ -45,7 +45,7 @@ public class Server {
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Check whether the topic exists or not.
+     * Check whether the topic already exists or not.
      * 
      * @param topic The topic to check
      * @return Whether the topic exists or not
@@ -69,7 +69,7 @@ public class Server {
      * @param topic    The topic to add an vote
      * @param voteType The type of the vote
      */
-    public static void addVoteToTopic(final String topic, final VoteType voteType) {
+    public static synchronized void addVoteToTopic(final String topic, final VoteType voteType) {
         List<Vote> votes = readCurrentVoteObjects();
 
         for (Vote vote : votes) {
@@ -113,7 +113,7 @@ public class Server {
      * 
      * @param topic The topic to add
      */
-    public static void addNewTopic(final String topic) {
+    public static synchronized void addNewTopic(final String topic) {
         List<Vote> votes = readCurrentVoteObjects();
         for (Vote vote : votes) {
             if (vote.getTopic().equals(topic)) {
@@ -133,7 +133,7 @@ public class Server {
      * 
      * @param votes The votes to write to the file
      */
-    private static synchronized void writeVoteObjects(final List<Vote> votes) {
+    private static void writeVoteObjects(final List<Vote> votes) {
         try {
             FileOutputStream fos = new FileOutputStream(voteResults);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
@@ -154,7 +154,7 @@ public class Server {
      * 
      * @return The list of votes
      */
-    private static synchronized List<Vote> readCurrentVoteObjects() {
+    private static List<Vote> readCurrentVoteObjects() {
         List<Vote> votes = new ArrayList<>();
 
         try {
