@@ -29,7 +29,6 @@ public class WorkerThread extends Thread {
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
 
-            System.out.println(ois.readObject().getClass().getCanonicalName());
             ClientType clientType = (ClientType) ois.readObject();
             String topic = (String) ois.readObject();
 

@@ -99,15 +99,12 @@ public class Server {
      * @return The vote object corresponding to the given topic
      */
     public static Vote getCurrentState(final String topic) {
-        Vote vote = null;
-
         for (Vote currentVote : readCurrentVoteObjects()) {
             if (currentVote.getTopic().equals(topic)) {
-                vote = currentVote;
-                break;
+                return currentVote;
             }
         }
-        return vote;
+        return null;
 
     }
 
@@ -157,7 +154,7 @@ public class Server {
      * 
      * @return The list of votes
      */
-    private static List<Vote> readCurrentVoteObjects() {
+    private static synchronized List<Vote> readCurrentVoteObjects() {
         List<Vote> votes = new ArrayList<>();
 
         try {
