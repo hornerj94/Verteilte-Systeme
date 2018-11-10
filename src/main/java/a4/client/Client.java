@@ -55,7 +55,13 @@ public class Client extends Thread {
      */
     public void checkVotes(final String topic) {
         Vote vote  = clientCommunicator.checkVotes(topic);
-        printVote(vote);
+        System.out.println(vote.isExisting());
+        if (vote.isExisting()) {
+        	printVote(vote);	
+		} else {
+			System.out.println("Zu der Umfrage " + topic + " wurde kein Eintrag gefunden");
+		}
+        
         
     }
 

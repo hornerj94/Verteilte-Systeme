@@ -14,9 +14,12 @@ public class Main {
     public static void main(String[] args) {        
         ClientCommunicator clientCommunicator = new ClientCommunicator();
         clientCommunicator.setCommunicationParameters(SERVER, PORT);
-        
         Client client = new Client(clientCommunicator);
+        
         client.addTopic("Bananen");
+        client.checkVotes("Bananen");
+        
+        clientCommunicator.closeConnection();
     }
     
     // ---------------------------------------------------------------------------------------------

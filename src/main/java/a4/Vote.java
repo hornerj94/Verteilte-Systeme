@@ -34,7 +34,9 @@ public class Vote implements Serializable {
     /**
      * Default constructor
      */
-    public Vote() { }
+    public Vote() { 
+    	exists = true;
+    }
 
     /**
      * Creates an vote with the given parameters.
@@ -45,6 +47,7 @@ public class Vote implements Serializable {
         this.topic = topic;
         this.approval =  0;
         this.refusal = 0;
+    	exists = true;
         
     }
     
@@ -100,7 +103,7 @@ public class Vote implements Serializable {
      * 
      * @return Whether the vote exists or not
      */
-    public boolean isExists() {
+    public boolean isExisting() {
         return exists;
     }
 
