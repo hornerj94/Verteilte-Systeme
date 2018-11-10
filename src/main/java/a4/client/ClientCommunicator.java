@@ -5,14 +5,15 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import a4.ClientType;
+import a4.Vote;
+import a4.VoteType;
+
 public class ClientCommunicator {
     // ---------------------------------------------------------------------------------------------
-
-    /** The port of the server to send the incoming messages. */
-    private final static int PORT = 7825;
-
+ 
     /** The socket of the server that waits for new incoming messages. */
-    private static Socket socket;
+    private Socket socket;
 
     // ---------------------------------------------------------------------------------------------
 

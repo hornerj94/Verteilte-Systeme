@@ -1,11 +1,14 @@
 package a4.client;
 
+import a4.Vote;
+import a4.VoteType;
+
 public class Client extends Thread {
     // ---------------------------------------------------------------------------------------------
 
     /** The client communicator of this client object. */
     private ClientCommunicator clientCommunicator;
-    
+     
     // ---------------------------------------------------------------------------------------------
     
     /**

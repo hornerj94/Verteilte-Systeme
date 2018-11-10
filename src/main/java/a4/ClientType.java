@@ -1,4 +1,4 @@
-package a4.server;
+package a4;
 
 /**
  * The type of client

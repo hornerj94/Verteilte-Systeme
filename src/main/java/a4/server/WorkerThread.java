@@ -5,6 +5,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+import a4.ClientType;
+import a4.Vote;
+import a4.VoteType;
+
 public class WorkerThread extends Thread {
     // ---------------------------------------------------------------------------------------------
 
@@ -25,6 +29,7 @@ public class WorkerThread extends Thread {
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
 
+            System.out.println(ois.readObject().getClass().getCanonicalName());
             ClientType clientType = (ClientType) ois.readObject();
             String topic = (String) ois.readObject();
 

@@ -1,4 +1,4 @@
-package a4.client;
+package a4;
 
 /**
  * The type of vote

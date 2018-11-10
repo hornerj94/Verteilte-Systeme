@@ -10,6 +10,9 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import a4.Vote;
+import a4.VoteType;
+
 /**
  * Server class for online votes with variable topics.
  * 
