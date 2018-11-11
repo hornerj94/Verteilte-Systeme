@@ -22,6 +22,9 @@ public class CircularBuffer extends UnicastRemoteObject implements RemoteCircula
     /** The size of the buffer. */
     private int size;
 
+    /** The amount of elements that the buffer holds currently. */
+    private int counter;
+
     /** The elements of the buffer. */
     private int[] elements;
 
@@ -39,6 +42,25 @@ public class CircularBuffer extends UnicastRemoteObject implements RemoteCircula
     }
 
     // ---------------------------------------------------------------------------------------------
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getSize() {
+        return size;
+        
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getElementAmount() {
+        return counter;
+    }
+    
+    // ---------------------------------------------------------------------------------------------
 
     /**
      * {@inheritDoc}
@@ -54,6 +76,7 @@ public class CircularBuffer extends UnicastRemoteObject implements RemoteCircula
         }
         element = elements[outPointer];
         
+        counter--;
         outPointer = (outPointer + 1) % size;
         notifyAll();
        
@@ -74,6 +97,7 @@ public class CircularBuffer extends UnicastRemoteObject implements RemoteCircula
         }
         elements[inPointer] = newValue;
         
+        counter++;
         inPointer = (inPointer + 1) % size;
         notifyAll();
         

@@ -14,11 +14,11 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            Registry registry = LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
+            LocateRegistry.createRegistry(Registry.REGISTRY_PORT);
         } catch (RemoteException e) {
             e.printStackTrace();
         }
-        
+        @SuppressWarnings("unused")
         Server server = new Server(BUFFERSIZE);
         
     }
