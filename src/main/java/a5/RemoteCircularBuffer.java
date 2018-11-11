@@ -16,6 +16,7 @@ public interface RemoteCircularBuffer extends Remote {
      * Gets the size of the buffer.
      * 
      * @return The size of the buffer
+     * @throws RemoteException Throws an exception if an communication error occurred
      */
     int getSize() throws RemoteException;
 
@@ -23,6 +24,7 @@ public interface RemoteCircularBuffer extends Remote {
      * Gets amount of elements in the buffer.
      * 
      * @return The amount of elements in the buffer
+     * @throws RemoteException Throws an exception if an communication error occurred
      */
     int getElementAmount() throws RemoteException;
 
@@ -30,6 +32,8 @@ public interface RemoteCircularBuffer extends Remote {
      * Reads the next element out of the buffer.
      * 
      * @return The read element
+     * @throws RemoteException Throws an exception if an communication error occurred
+    * 
      */
     int readElement() throws RemoteException;
     
@@ -37,6 +41,7 @@ public interface RemoteCircularBuffer extends Remote {
      * Writes the next element into the buffer.
      * 
      * @param newValue The value to insert
+     * @throws RemoteException Throws an exception if an communication error occurred
      */
     void insertElement(final int newValue) throws RemoteException;
     
