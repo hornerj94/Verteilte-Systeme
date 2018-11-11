@@ -7,31 +7,24 @@ import java.rmi.RemoteException;
 
 import a5.RemoteCircularBuffer;
 
-/**
- * The consument thread.
- * 
- * @author julian
- *
- */
-class Consumer extends Thread {
+public class AskingClient extends Thread {
     // ---------------------------------------------------------------------------------------------
-
-    /** The number of the consument. */
-    private int id;
-
+    
+    /** The type of the client. */
+    private ClientType clientType;
+    
     /** The remote buffer for calls. */
     private RemoteCircularBuffer circularBuffer;
 
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Creates an consument object with the given parameters.
+     * Creates an client object with the given parameters.
      * 
-     * @param id             The id of the consument
      * @param circularBuffer The remote circular buffer
      */
-    public Consumer(final int id, final String serverAddress, final int port) {
-        this.id = id;
+    public AskingClient(final ClientType clientType, final String serverAddress, final int port) {
+        this.clientType = clientType;
         try {
             circularBuffer = (RemoteCircularBuffer) Naming.lookup(
                     "rmi://" + serverAddress + ":" + port + "/RemoteCircularBuffer");
@@ -47,18 +40,14 @@ class Consumer extends Thread {
      */
     @Override
     public void run() {
-        int readElement = 0;
-
-        for (int i = 0; i < 100; i++) {
-            try {
-                readElement = circularBuffer.readElement();
-            } catch (RemoteException e1) {
-                e1.printStackTrace();
-            }
-            System.out.println("Konsument " + id + " hat ausgelesen: " + readElement);
-
+        if (clientType == ClientType.BUFFER_SIZE_CLIENT) {
+            System.out.println("Die Größe des Ringpuffers beträgt: " + circularBuffer.getSize());
+        } else {
+            System.out.println("Im Ringpuffer sind aktuell " + circularBuffer.getElementAmount() 
+                    + " Elemente gespeichert");
         }
+    
     }
-
+    
     // ---------------------------------------------------------------------------------------------
 }

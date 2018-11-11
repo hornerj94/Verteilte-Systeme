@@ -21,8 +21,8 @@ public class Main {
     public static void main(String[] args) {
     	List<Thread> threads = new ArrayList<>();
     	for (int i = 0; i < AMOUNT ; i++) {
-    		Consumer consumer = new Consumer(i + 1, SERVER, PORT);
-    		Producer producer = new Producer(i + 1, SERVER, PORT);
+    		ConsumerClient consumer = new ConsumerClient(i + 1, SERVER, PORT);
+    		ProducerClient producer = new ProducerClient(i + 1, SERVER, PORT);
     		threads.add(consumer);
     		threads.add(producer);
     		

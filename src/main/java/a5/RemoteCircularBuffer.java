@@ -13,6 +13,20 @@ public interface RemoteCircularBuffer extends Remote {
     // ---------------------------------------------------------------------------------------------
 
     /**
+     * Gets the size of the buffer.
+     * 
+     * @return The size of the buffer
+     */
+    int getSize();
+
+    /**
+     * Gets amount of elements in the buffer.
+     * 
+     * @return The amount of elements in the buffer
+     */
+    int getElementAmount();
+
+    /**
      * Reads the next element out of the buffer.
      * 
      * @return The read element

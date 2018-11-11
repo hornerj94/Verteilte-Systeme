@@ -13,7 +13,7 @@ import a5.RemoteCircularBuffer;
  * @author julian
  *
  */
-class Producer extends Thread {
+public class ProducerClient extends Thread {
     // ---------------------------------------------------------------------------------------------
 
     /** The number of the consument. */
@@ -30,7 +30,7 @@ class Producer extends Thread {
      * @param id             The id of the consument
      * @param circularBuffer The remote circular buffer
      */
-    public Producer(final int id, final String serverAddress, final int port) {
+    public ProducerClient(final int id, final String serverAddress, final int port) {
         this.id = id;
         try {
             circularBuffer = (RemoteCircularBuffer) Naming.lookup(
