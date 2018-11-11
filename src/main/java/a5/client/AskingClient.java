@@ -9,10 +9,10 @@ import a5.RemoteCircularBuffer;
 
 public class AskingClient extends Thread {
     // ---------------------------------------------------------------------------------------------
-    
+
     /** The type of the client. */
     private ClientType clientType;
-    
+
     /** The remote buffer for calls. */
     private RemoteCircularBuffer circularBuffer;
 
@@ -40,14 +40,20 @@ public class AskingClient extends Thread {
      */
     @Override
     public void run() {
-        if (clientType == ClientType.BUFFER_SIZE_CLIENT) {
-            System.out.println("Die Größe des Ringpuffers beträgt: " + circularBuffer.getSize());
-        } else {
-            System.out.println("Im Ringpuffer sind aktuell " + circularBuffer.getElementAmount() 
-                    + " Elemente gespeichert");
+        try {
+            if (clientType == ClientType.BUFFER_SIZE_CLIENT) {
+                System.out.println("Die Größe des Ringpuffers beträgt: " 
+                        + circularBuffer.getSize());
+
+            } else {
+                System.out.println("Im Ringpuffer sind aktuell " + circularBuffer.getElementAmount() 
+                            + " Elemente gespeichert");
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
         }
-    
+
     }
-    
+
     // ---------------------------------------------------------------------------------------------
 }

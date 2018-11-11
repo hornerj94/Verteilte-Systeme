@@ -20,13 +20,7 @@ public class Main {
     
     public static void main(String[] args) {
     	List<Thread> threads = new ArrayList<>();
-    	
-    	AskingClient clientStartElementCounter = 
-    			new AskingClient(ClientType.ELEMENT_COUNTER_CLIENT, SERVER, PORT);
-    	AskingClient clientStartSizeCounter = new AskingClient(ClientType.BUFFER_SIZE_CLIENT, SERVER, PORT);
-    	clientStartElementCounter.start();
-    	clientStartSizeCounter.start();
-    	
+    	    	
     	for (int i = 0; i < AMOUNT ; i++) {
     		ConsumerClient consumer = new ConsumerClient(i + 1, SERVER, PORT);
     		ProducerClient producer = new ProducerClient(i + 1, SERVER, PORT);
