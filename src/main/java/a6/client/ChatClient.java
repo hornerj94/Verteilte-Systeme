@@ -15,7 +15,7 @@ import a6.RemoteInformationServer;
  * @author julian
  *
  */
-public class ChatClient extends UnicastRemoteObject implements RemoteChatClient {
+public class ChatClient extends UnicastRemoteObject implements RemoteChatClient, Runnable {
     // ---------------------------------------------------------------------------------------------
     
     /** The serial version uid of the chat client. */
@@ -53,6 +53,18 @@ public class ChatClient extends UnicastRemoteObject implements RemoteChatClient 
     // ---------------------------------------------------------------------------------------------
 
     /**
+     * {@inheritDoc}
+     */
+	@Override
+	public void run() {
+		while (true) {
+			
+		}
+	}
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
      * The client registers itself to the information server.
      */
     public void register() {
@@ -62,7 +74,7 @@ public class ChatClient extends UnicastRemoteObject implements RemoteChatClient 
             e.printStackTrace();
         }
     }
-    
+   
     // ---------------------------------------------------------------------------------------------
 
     /**
