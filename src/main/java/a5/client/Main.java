@@ -14,20 +14,33 @@ public class Main {
     private final static String SERVER = "DESKTOP-Q99AK62.localdomain";
 
     /** The amount of producer and consumer to create. */
-    private final static int AMOUNT = 100;
+    private final static int AMOUNT = 10;
     
     // ---------------------------------------------------------------------------------------------
     
     public static void main(String[] args) {
     	List<Thread> threads = new ArrayList<>();
+    	
+    	AskingClient clientStartElementCounter = 
+    			new AskingClient(ClientType.ELEMENT_COUNTER_CLIENT, SERVER, PORT);
+    	AskingClient clientStartSizeCounter = new AskingClient(ClientType.BUFFER_SIZE_CLIENT, SERVER, PORT);
+    	clientStartElementCounter.start();
+    	clientStartSizeCounter.start();
+    	
     	for (int i = 0; i < AMOUNT ; i++) {
     		ConsumerClient consumer = new ConsumerClient(i + 1, SERVER, PORT);
     		ProducerClient producer = new ProducerClient(i + 1, SERVER, PORT);
+        	AskingClient clientElementCounter = new AskingClient(ClientType.ELEMENT_COUNTER_CLIENT, SERVER, PORT);
+        	AskingClient clientSizeCounter = new AskingClient(ClientType.BUFFER_SIZE_CLIENT, SERVER, PORT);
+
     		threads.add(consumer);
     		threads.add(producer);
-    		
-    		consumer.start();
-    		producer.start();
+    		threads.add(clientSizeCounter);
+    		threads.add(clientElementCounter);
+		}
+
+    	for (Thread thread : threads) {
+			thread.start();
 		}
     	
     	for (Thread thread : threads) {
@@ -37,7 +50,15 @@ public class Main {
 				e.printStackTrace();
 			}
 		}
-        
+    	
+    	AskingClient clientEndElementCounter = 
+    			new AskingClient(ClientType.ELEMENT_COUNTER_CLIENT, SERVER, PORT);
+        clientEndElementCounter.start();
+        try {
+			clientEndElementCounter.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
     }
 
     // ---------------------------------------------------------------------------------------------
