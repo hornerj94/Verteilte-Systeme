@@ -13,7 +13,7 @@ import a5.RemoteCircularBuffer;
  * @author julian
  *
  */
-class Consument extends Thread {
+class Consumer extends Thread {
     // ---------------------------------------------------------------------------------------------
 
     /** The number of the consument. */
@@ -30,11 +30,11 @@ class Consument extends Thread {
      * @param id             The id of the consument
      * @param circularBuffer The remote circular buffer
      */
-    public Consument(final int id, final String serverAddress, final String remoteName) {
+    public Consumer(final int id, final String serverAddress, final int port) {
         this.id = id;
         try {
             circularBuffer = (RemoteCircularBuffer) Naming.lookup(
-                    "rmi://" + serverAddress + "/" + remoteName);
+                    "rmi://" + serverAddress + ":" + port + "/RemoteCircularBuffer");
         } catch (MalformedURLException | RemoteException | NotBoundException e) {
             e.printStackTrace();
         }
