@@ -76,12 +76,9 @@ public class WorkerThread extends Thread {
             oos.flush();
             oos.close();
             ois.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 
     // ---------------------------------------------------------------------------------------------
