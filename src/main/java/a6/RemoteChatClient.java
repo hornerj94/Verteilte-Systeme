@@ -1,4 +1,4 @@
-package a6.client;
+package a6;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

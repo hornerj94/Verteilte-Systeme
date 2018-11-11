@@ -6,7 +6,8 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
-import a6.server.RemoteInformationServer;
+import a6.RemoteChatClient;
+import a6.RemoteInformationServer;
 
 /**
  * The chat client class.

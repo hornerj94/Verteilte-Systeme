@@ -8,8 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import a6.RemoteChatClient;
+import a6.RemoteInformationServer;
 import a6.client.ChatClient;
-import a6.client.RemoteChatClient;
 
 public class InformationServer extends UnicastRemoteObject implements RemoteInformationServer {
     // ---------------------------------------------------------------------------------------------
