@@ -30,17 +30,22 @@ public class Main {
 
     public static void main(String[] args) { 
         while (true) {
+        	clientType = null;
+        	topic = "";
+        	voteType = null;
+        	
             startConsole();
 
-            ClientCommunicator clientCommunicator = new ClientCommunicator(SERVER, PORT);
-            Client client = 
-                    new Client(clientCommunicator, ClientType.VOTING_CLIENT, topic, voteType);
-            client.start();
+            if (clientType != null && !topic.equals("")) {
+                ClientCommunicator clientCommunicator = new ClientCommunicator(SERVER, PORT);
+                Client client = new Client(clientCommunicator, clientType, topic, voteType);
+                client.run();
 
-            try {
-                client.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+                try {
+                    client.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -118,13 +123,10 @@ public class Main {
     }
 
     private static void result() {
-        while (true) {
-            System.out.println("\nGeben sie den Namen des Themas ein,"
-                    + " von welchem sie die gesammelten Ergebnisse betrachten wollen:");
-            System.out.println("Thema: ");
-            topic = scanner.nextLine();
-
-        }
+        System.out.println("\nGeben sie den Namen des Themas ein,"
+                + " von welchem sie die gesammelten Ergebnisse betrachten wollen:");
+        System.out.println("Thema: ");
+        topic = scanner.nextLine();
     }
 
     // ---------------------------------------------------------------------------------------------

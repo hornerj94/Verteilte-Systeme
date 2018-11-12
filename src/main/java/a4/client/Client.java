@@ -21,21 +21,6 @@ public class Client extends Thread {
 
 	// ---------------------------------------------------------------------------------------------
 
-	/**
-     * Creates the client with the given parameters.
-     * 
-     * @param clientCommunicator The client communicator of the client
-     * @param clientType The type of the client
-     * @param topic The topic of the client
-     */
-    public Client(final ClientCommunicator clientCommunicator, final ClientType clientType, 
-            final String topic) {
-        this.clientCommunicator = clientCommunicator;
-        this.clientType = clientType;
-        this.topic = topic;
-
-    }
-
     /**
      * Creates the client with the given parameters.
      * 
@@ -55,7 +40,10 @@ public class Client extends Thread {
 
 	// ---------------------------------------------------------------------------------------------
 
-	@Override
+    /**
+     * {@inheritDoc}
+     */
+    @Override
 	public void run() {
 		String result = "";
 
