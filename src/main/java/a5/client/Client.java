@@ -7,7 +7,7 @@ import java.rmi.RemoteException;
 
 import a5.RemoteCircularBuffer;
 
-public class AskingClient extends Thread {
+public class Client extends Thread {
     // ---------------------------------------------------------------------------------------------
 
     /** The type of the client. */
@@ -23,7 +23,7 @@ public class AskingClient extends Thread {
      * 
      * @param circularBuffer The remote circular buffer
      */
-    public AskingClient(final ClientType clientType, final String serverAddress, final int port) {
+    public Client(final ClientType clientType, final String serverAddress, final int port) {
         this.clientType = clientType;
         try {
             circularBuffer = (RemoteCircularBuffer) Naming.lookup(
