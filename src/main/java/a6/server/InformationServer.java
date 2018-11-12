@@ -10,7 +10,6 @@ import java.util.Random;
 
 import a6.RemoteChatClient;
 import a6.RemoteInformationServer;
-import a6.client.ChatClient;
 
 public class InformationServer extends UnicastRemoteObject implements RemoteInformationServer {
     // ---------------------------------------------------------------------------------------------
@@ -80,6 +79,7 @@ public class InformationServer extends UnicastRemoteObject implements RemoteInfo
             chatClients.add(chatClient);
 
         }
+        chatClient.print("Client erfolgreich registriert");
     }
 
     /**
@@ -88,6 +88,7 @@ public class InformationServer extends UnicastRemoteObject implements RemoteInfo
     @Override
     public synchronized void removeClient(RemoteChatClient chatClient) throws RemoteException {
         chatClients.remove(chatClient);
+        chatClient.print("Client erfolgreich entfernt");
 
     }
 
