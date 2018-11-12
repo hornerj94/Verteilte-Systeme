@@ -12,9 +12,6 @@ public class Main {
 
     /** The port of the server to send the incoming messages. */
     private final static String SERVER = "DESKTOP-Q99AK62.fh-reutlingen.de";
-
-    /** The amount of producer and consumer to create. */
-    private final static int AMOUNT = 2;
     
     /** The scanner for reading the users input. */
     private final static Scanner scanner = new Scanner(System.in);
@@ -26,7 +23,7 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            CHAT_CLIENT = new ChatClient(1, SERVER, PORT);
+            CHAT_CLIENT = new ChatClient(1, SERVER, PORT);            
         } catch (RemoteException e) {
             e.printStackTrace();
         }

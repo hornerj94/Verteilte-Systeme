@@ -1,6 +1,8 @@
 package a6.client;
 
+import java.net.InetAddress;
 import java.net.MalformedURLException;
+import java.net.UnknownHostException;
 import java.rmi.Naming;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -15,7 +17,7 @@ import a6.RemoteInformationServer;
  * @author julian
  *
  */
-public class ChatClient extends UnicastRemoteObject implements RemoteChatClient, Runnable {
+public class ChatClient extends UnicastRemoteObject implements RemoteChatClient {
     // ---------------------------------------------------------------------------------------------
     
     /** The serial version uid of the chat client. */
@@ -48,16 +50,6 @@ public class ChatClient extends UnicastRemoteObject implements RemoteChatClient,
         }
 
     }
-
-    // ---------------------------------------------------------------------------------------------
-
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-	public void run() {
-		while (true) { }
-	}
 
     // ---------------------------------------------------------------------------------------------
 

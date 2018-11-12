@@ -76,7 +76,7 @@ public class InformationServer extends UnicastRemoteObject implements RemoteInfo
      */
     @Override
     public synchronized void addClient(final RemoteChatClient chatClient) throws RemoteException {
-        if (!checkClientExists(chatClient.getId())) {
+        if (!checkClientExists(chatClient)) {
             chatClients.add(chatClient);
 
         }
@@ -99,8 +99,9 @@ public class InformationServer extends UnicastRemoteObject implements RemoteInfo
      * @param rChatClient The chat client to check
      * @return Whether the client already is in the list or not
      */
-    private boolean checkClientExists(final int id) {
+    private boolean checkClientExists(final RemoteChatClient rChatClient) {
         try {
+        	int id = rChatClient.getId();
             int remoteId = 0;
             for (RemoteChatClient chatClient : chatClients) {
                 remoteId = chatClient.getId();
