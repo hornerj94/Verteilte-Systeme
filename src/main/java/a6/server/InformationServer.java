@@ -21,7 +21,7 @@ public class InformationServer extends UnicastRemoteObject implements RemoteInfo
     // =============================================================================================
 
     /** The server. */
-    private List<RemoteChatClient> remoteChatClients;
+    private List<RemoteChatClient> chatClients;
 
     /** The random generator of the server. */
     private Random randomGenerator;
@@ -38,7 +38,7 @@ public class InformationServer extends UnicastRemoteObject implements RemoteInfo
         super();
 
         randomGenerator = new Random();
-        remoteChatClients = new ArrayList<>();
+        chatClients = new ArrayList<>();
 
         try {
             Naming.rebind("rmi://localhost/RemoteInformationServer", this);
@@ -59,7 +59,7 @@ public class InformationServer extends UnicastRemoteObject implements RemoteInfo
             int randomValue;
             while (true) {
                 randomValue = randomGenerator.nextInt(8400);
-                for (RemoteChatClient remoteChatClient : remoteChatClients) {
+                for (RemoteChatClient remoteChatClient : chatClients) {
                     remoteChatClient.print("Der aktuelle Wert beträgt: " + randomValue);
                 }
                 Thread.sleep(60000);
@@ -78,8 +78,8 @@ public class InformationServer extends UnicastRemoteObject implements RemoteInfo
      */
     @Override
     public synchronized void addClient(final RemoteChatClient chatClient) throws RemoteException {
-        if (!checkClientExists(chatClient)) {
-            remoteChatClients.add(chatClient);
+        if (!checkClientExists(chatClient.getId())) {
+            chatClients.add(chatClient);
 
         }
     }
@@ -89,7 +89,7 @@ public class InformationServer extends UnicastRemoteObject implements RemoteInfo
      */
     @Override
     public synchronized void removeClient(RemoteChatClient chatClient) throws RemoteException {
-        remoteChatClients.remove(chatClient);
+        chatClients.remove(chatClient);
 
     }
 
@@ -98,17 +98,16 @@ public class InformationServer extends UnicastRemoteObject implements RemoteInfo
     /**
      * Checks whether the client already is in the list or not.
      * 
-     * @param chatClient The chat client to check
+     * @param rChatClient The chat client to check
      * @return Whether the client already is in the list or not
      */
-    private boolean checkClientExists(final RemoteChatClient chatClient) {
+    private boolean checkClientExists(final int id) {
         try {
-            int clientId = chatClient.getId();
             int remoteId = 0;
-            for (RemoteChatClient remoteChatClient : remoteChatClients) {
-                remoteId = remoteChatClient.getId();
+            for (RemoteChatClient chatClient : chatClients) {
+                remoteId = chatClient.getId();
 
-                if (clientId == remoteId) {
+                if (id == remoteId) {
                     return true;
 
                 }
