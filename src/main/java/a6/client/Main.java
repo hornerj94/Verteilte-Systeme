@@ -13,9 +13,6 @@ public class Main {
     /** The port of the server to send the incoming messages. */
     private final static String SERVER = "INF-9-007-06.windows.reutlingen-university.de";
 //    private final static String SERVER = "DESKTOP-Q99AK62.fh-reutlingen.de";
-
-    /** The amount of producer and consumer to create. */
-    private final static int AMOUNT = 2;
     
     /** The scanner for reading the users input. */
     private final static Scanner scanner = new Scanner(System.in);
