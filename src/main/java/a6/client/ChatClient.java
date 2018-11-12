@@ -39,7 +39,6 @@ public class ChatClient extends UnicastRemoteObject implements RemoteChatClient,
      */
     public ChatClient(final int id, final String serverAddress, final int port) 
             throws RemoteException {
-        super();
         this.id = id;
         try {
             server = (RemoteInformationServer) Naming.lookup(

@@ -35,8 +35,6 @@ public class InformationServer extends UnicastRemoteObject implements RemoteInfo
      *                         occurred
      */
     public InformationServer() throws RemoteException {
-        super();
-
         randomGenerator = new Random();
         chatClients = new ArrayList<>();
 
