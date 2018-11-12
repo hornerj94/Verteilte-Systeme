@@ -55,7 +55,7 @@ public class ConsumerClient extends Thread {
             } catch (RemoteException e1) {
                 e1.printStackTrace();
             }
-            System.out.println("Konsument " + id + " hat ausgelesen: " + readElement);
+//            System.out.println("Konsument " + id + " hat ausgelesen: " + readElement);
 
         }
     }

@@ -1,5 +1,7 @@
 package a5.client;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +14,10 @@ public class Main {
     private final static int PORT = Registry.REGISTRY_PORT;
 
     /** The port of the server to send the incoming messages. */
-    private final static String SERVER = "DESKTOP-Q99AK62.localdomain";
+    private final static String SERVER = "DESKTOP-Q99AK62.fh-reutlingen.de";
 
     /** The amount of producer and consumer to create. */
-    private final static int AMOUNT = 1000;
+    private final static int AMOUNT = 200;
     
     /** The scanner for reading the users input. */
     private final static Scanner scanner = new Scanner(System.in);
@@ -36,10 +38,10 @@ public class Main {
     		ProducerClient producer = new ProducerClient(i + 1, SERVER, PORT);
 
     		threads.add(consumer);
-    		threads.add(producer);
-    		
-    		consumer.start();
-    		producer.start();
+    		threads.add(producer);	
+		}
+    	for (Thread thread : threads) {
+			thread.start();
 		}
     	
     	while (!isTerminated) {

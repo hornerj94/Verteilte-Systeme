@@ -50,7 +50,7 @@ public class ProducerClient extends Thread {
             } catch (RemoteException e1) {
                 e1.printStackTrace();
             }
-            System.out.println("Produzent " + id + " hat eingefuegt: " + (100 * id + i));
+//            System.out.println("Produzent " + id + " hat eingefuegt: " + (100 * id + i));
 
         }
     }
