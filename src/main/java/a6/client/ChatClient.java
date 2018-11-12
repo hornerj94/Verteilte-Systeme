@@ -57,9 +57,7 @@ public class ChatClient extends UnicastRemoteObject implements RemoteChatClient,
      */
 	@Override
 	public void run() {
-		while (true) {
-			
-		}
+		while (true) { }
 	}
 
     // ---------------------------------------------------------------------------------------------
@@ -74,7 +72,18 @@ public class ChatClient extends UnicastRemoteObject implements RemoteChatClient,
             e.printStackTrace();
         }
     }
-   
+
+    /**
+     * The client removes itself from the information server.
+     */
+    public void remove() {
+        try {
+            server.removeClient(this);
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
+    }
+
     // ---------------------------------------------------------------------------------------------
 
     /**
