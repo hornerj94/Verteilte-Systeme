@@ -1,7 +1,5 @@
 package a5.client;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +12,8 @@ public class Main {
     private final static int PORT = Registry.REGISTRY_PORT;
 
     /** The port of the server to send the incoming messages. */
-    private final static String SERVER = "DESKTOP-Q99AK62.fh-reutlingen.de";
+    private final static String SERVER = "INF-9-007-06.windows.reutlingen-university.de";
+//    private final static String SERVER = "DESKTOP-Q99AK62.fh-reutlingen.de";
 
     /** The amount of producer and consumer to create. */
     private final static int AMOUNT = 200;
