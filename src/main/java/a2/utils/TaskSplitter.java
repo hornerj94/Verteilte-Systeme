@@ -1,9 +1,9 @@
-package utils;
+package a2.utils;
 
 import java.util.Stack;
 
 import a2.Matrix;
-import conf.ViolatedMatrixMultiplicationRulesException;
+import a2.conf.ViolatedMatrixMultiplicationRulesException;
 
 /**
  * Utility class to split up the <code>CalculationTask<code>s.

@@ -2,8 +2,8 @@ package a2.masterworker;
 
 import java.util.concurrent.Semaphore;
 
-import utils.CalculationTask;
-import utils.Calculator;
+import a2.utils.CalculationTask;
+import a2.utils.Calculator;
 
 /**
  * The class takes the role of an worker in the master-worker-paradigm.

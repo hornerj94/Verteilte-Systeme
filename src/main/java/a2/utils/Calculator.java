@@ -1,7 +1,7 @@
-package utils;
+package a2.utils;
 
 import a2.Matrix;
-import conf.ViolatedMatrixMultiplicationRulesException;
+import a2.conf.ViolatedMatrixMultiplicationRulesException;
 
 /**
  * Utility class for various calculating tasks.

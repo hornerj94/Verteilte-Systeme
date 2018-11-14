@@ -1,4 +1,4 @@
-package conf;
+package a2.conf;
 
 /**
  * Exception for not supported numbers.

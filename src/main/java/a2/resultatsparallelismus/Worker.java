@@ -3,8 +3,8 @@ package a2.resultatsparallelismus;
 import java.util.Stack;
 import java.util.concurrent.Semaphore;
 
-import utils.CalculationTask;
-import utils.Calculator;
+import a2.utils.CalculationTask;
+import a2.utils.Calculator;
 
 /**
  * The class takes the role of an worker in result-parallelism-paradigm.

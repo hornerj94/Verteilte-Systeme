@@ -1,4 +1,4 @@
-package utils;
+package a2.utils;
 
 /**
  * Represents an task to calculate two scalars.

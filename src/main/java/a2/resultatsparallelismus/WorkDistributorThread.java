@@ -6,9 +6,9 @@ import java.util.Stack;
 import java.util.concurrent.Semaphore;
 
 import a2.Matrix;
-import conf.ViolatedMatrixMultiplicationRulesException;
-import utils.CalculationTask;
-import utils.TaskSplitter;
+import a2.conf.ViolatedMatrixMultiplicationRulesException;
+import a2.utils.CalculationTask;
+import a2.utils.TaskSplitter;
 
 /**
  * An thread class which has the task to calculate an matrix. The thread split
