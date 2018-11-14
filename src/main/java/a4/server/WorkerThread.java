@@ -28,6 +28,9 @@ public class WorkerThread extends Thread {
 
     // ---------------------------------------------------------------------------------------------
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void run() {
         try {
