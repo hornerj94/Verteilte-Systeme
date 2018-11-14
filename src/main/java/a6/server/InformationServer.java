@@ -59,7 +59,7 @@ public class InformationServer extends UnicastRemoteObject implements RemoteInfo
                 for (RemoteChatClient remoteChatClient : chatClients) {
                     remoteChatClient.print("Der aktuelle Wert beträgt: " + randomValue);
                 }
-                Thread.sleep(60000);
+                Thread.sleep(6000);
 
             }
         } catch (RemoteException | InterruptedException e) {
