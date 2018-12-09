@@ -9,10 +9,13 @@ package a4;
 public enum ClientType {
     // ---------------------------------------------------------------------------------------------
     
+    /** Voting Type. */
     VOTING_CLIENT("Vote"),
     
+    /** Result Type. */
     CURRENT_STATE_CLIENT("Result"),
     
+    /** Topic Type. */
     NEW_TOPIC_CLIENT("Topic");
     
     // ---------------------------------------------------------------------------------------------
@@ -31,16 +34,5 @@ public enum ClientType {
         this.name = name;
     }
     
-    // ---------------------------------------------------------------------------------------------
-
-    /**
-     * Gets the name of the value.
-     * 
-     * @return The name of the value
-     */
-    public String getName() {
-        return name;
-    }
-
     // ---------------------------------------------------------------------------------------------
 }

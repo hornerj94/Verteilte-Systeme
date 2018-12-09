@@ -9,7 +9,7 @@ import a4.ClientType;
 import a4.Vote;
 import a4.VoteType;
 
-public class WorkerThread extends Thread {
+public class RequestWorkerThread extends Thread {
     // ---------------------------------------------------------------------------------------------
 
     /** The socket that holds the connection between the client and the server. */
@@ -22,7 +22,7 @@ public class WorkerThread extends Thread {
      * 
      * @param socket The socket that holds the client connection
      */
-    public WorkerThread(final Socket socket) {
+    public RequestWorkerThread(final Socket socket) {
         this.socket = socket;
     }
 
@@ -42,10 +42,10 @@ public class WorkerThread extends Thread {
 
             switch (clientType) {
             case CURRENT_STATE_CLIENT:
-                
+
                 if (Server.checkTopicExists(topic)) {
                     oos.writeObject(Server.getCurrentState(topic));
-                    
+
                 } else {
                     Vote vote = new Vote();
                     vote.setExists(false);
@@ -61,13 +61,13 @@ public class WorkerThread extends Thread {
 
                 } else {
                     oos.writeObject("Die angegebene Umfrage existiert nicht");
-                    
+
                 }
                 break;
             case NEW_TOPIC_CLIENT:
                 if (Server.checkTopicExists(topic)) {
                     oos.writeObject("Die Umfrage existiert bereits");
-                    
+
                 } else {
                     Server.addNewTopic(topic);
                     oos.writeObject("Die neue Umfrage wurde erfolgreich erstellt");

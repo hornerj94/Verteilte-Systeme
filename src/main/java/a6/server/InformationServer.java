@@ -11,11 +11,17 @@ import java.util.Random;
 import a6.RemoteChatClient;
 import a6.RemoteInformationServer;
 
+/**
+ * Information server class.
+ * 
+ * @author julian
+ *
+ */
 public class InformationServer extends UnicastRemoteObject implements RemoteInformationServer {
     // ---------------------------------------------------------------------------------------------
 
     /** The serial version uid of the chat client. */
-    private static final long serialVersionUID = -213185636953358702L;
+    private static final long serialVersionUID = 1520523275104405965L;
 
     // =============================================================================================
 

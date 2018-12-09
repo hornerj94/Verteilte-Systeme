@@ -8,7 +8,7 @@ import java.rmi.RemoteException;
 import a5.RemoteCircularBuffer;
 
 /**
- * The consument thread.
+ * An consument thread class.
  * 
  * @author julian
  *

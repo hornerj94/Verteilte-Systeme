@@ -5,6 +5,12 @@ import java.rmi.server.UnicastRemoteObject;
 
 import a5.RemoteCircularBuffer;
 
+/**
+ * Circular buffer class.
+ * 
+ * @author julian
+ *
+ */
 public class CircularBuffer extends UnicastRemoteObject implements RemoteCircularBuffer {
     // ---------------------------------------------------------------------------------------------
 

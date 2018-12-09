@@ -15,14 +15,13 @@ public class RecursiveThread extends Thread {
     /** The second value to calculate. */
     private int k;
 
-    /**
-     * The thread that starts this thread and that holds the list of finished tasks.
-     */
+    /** The thread that starts this thread and that holds the list of finished tasks. */
     private InitializingThread initializerThread;
 
     // ---------------------------------------------------------------------------------------------
 
     /**
+     * Sets the given parameters.
      * 
      * @param n                 The first value to calculate
      * @param k                 The second value to calculate
@@ -38,6 +37,9 @@ public class RecursiveThread extends Thread {
 
     // ---------------------------------------------------------------------------------------------
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void run() {
         calculateBinomialCoeffizient(n, k);

@@ -8,7 +8,7 @@ import java.rmi.RemoteException;
 import a5.RemoteCircularBuffer;
 
 /**
- * The producer thread.
+ * An producer thread class.
  * 
  * @author julian
  *
@@ -28,7 +28,8 @@ public class ProducerClient extends Thread {
      * Creates an consument object with the given parameters.
      * 
      * @param id             The id of the consument
-     * @param circularBuffer The remote circular buffer
+     * @param serverAddress  The address of the server
+     * @param port           The port of the server
      */
     public ProducerClient(final int id, final String serverAddress, final int port) {
         this.id = id;
@@ -42,6 +43,9 @@ public class ProducerClient extends Thread {
 
     // ---------------------------------------------------------------------------------------------
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void run() {
         for (int i = 0; i < 100; i++) {

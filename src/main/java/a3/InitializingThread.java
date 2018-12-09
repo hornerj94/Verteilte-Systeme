@@ -90,17 +90,11 @@ public class InitializingThread extends Thread {
 
     // ---------------------------------------------------------------------------------------------
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void run() {
-            calculateBinomialCoefficient();
-    }
-
-    // ---------------------------------------------------------------------------------------------
-   
-    /**
-     * Calculates the binomial coefficient and sets the solution of the calculation.
-     */
-    private void calculateBinomialCoefficient() {             
         if (k > n) {
             solution = 0;
         } else if (k == n) {

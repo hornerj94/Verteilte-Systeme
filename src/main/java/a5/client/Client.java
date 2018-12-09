@@ -7,6 +7,12 @@ import java.rmi.RemoteException;
 
 import a5.RemoteCircularBuffer;
 
+/**
+ * Client class for online votes with variable topics.
+ * 
+ * @author julian
+ *
+ */
 public class Client extends Thread {
     // ---------------------------------------------------------------------------------------------
 

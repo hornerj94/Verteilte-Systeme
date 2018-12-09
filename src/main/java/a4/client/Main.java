@@ -38,7 +38,7 @@ public class Main {
 
             if (clientType != null && !topic.equals("")) {
                 ClientCommunicator clientCommunicator = new ClientCommunicator(SERVER, PORT);
-                Client client = new Client(clientCommunicator, clientType, topic, voteType);
+                ClientRequest client = new ClientRequest(clientCommunicator, clientType, topic, voteType);
                 client.run();
 
                 try {

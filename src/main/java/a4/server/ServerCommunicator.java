@@ -29,13 +29,16 @@ public class ServerCommunicator extends Thread {
     
     // ---------------------------------------------------------------------------------------------
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void run() {
         try {
             ServerSocket serverSocket = new ServerSocket(port);
             while (!isInterrupted()) {
                 Socket newSock = serverSocket.accept();
-                new WorkerThread(newSock).start();
+                new RequestWorkerThread(newSock).start();
 
             }
             serverSocket.close();

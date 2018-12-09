@@ -111,6 +111,9 @@ public class Master extends Thread {
 
     // ---------------------------------------------------------------------------------------------
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void run() {
         if (threadNumber > 0) {

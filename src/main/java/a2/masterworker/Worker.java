@@ -26,6 +26,8 @@ public class Worker extends Thread {
     // ---------------------------------------------------------------------------------------------
 
     /**
+     * Sets the given parameters.
+     * 
      * @param semaphore The event semaphore
      * @param master    The master of the worker
      */
@@ -36,6 +38,9 @@ public class Worker extends Thread {
 
     // ---------------------------------------------------------------------------------------------
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void run() {
         while (!master.getUnfinishedCalculationTasks().isEmpty()) {

@@ -4,7 +4,7 @@ import a4.ClientType;
 import a4.Vote;
 import a4.VoteType;
 
-public class Client extends Thread {
+public class ClientRequest extends Thread {
 	// ---------------------------------------------------------------------------------------------
 
 	/** The client communicator of this client object. */
@@ -29,7 +29,7 @@ public class Client extends Thread {
      * @param topic The topic of the client
      * @param voteType The type of the vote
      */
-    public Client(final ClientCommunicator clientCommunicator, final ClientType clientType, 
+    public ClientRequest(final ClientCommunicator clientCommunicator, final ClientType clientType, 
             final String topic, final VoteType voteType) {
         this.clientCommunicator = clientCommunicator;
         this.clientType = clientType;

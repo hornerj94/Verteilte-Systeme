@@ -30,8 +30,7 @@ public class Worker extends Thread {
     // ---------------------------------------------------------------------------------------------
 
     /**
-     * Start the execution of the thread and sets the semaphore and the master
-     * thread.
+     * Sets the semaphore and the master thread.
      * 
      * @param semaphore The event semaphore
      * @param unfinishedTasks The unfinishedTasks
@@ -55,6 +54,9 @@ public class Worker extends Thread {
     
     // ---------------------------------------------------------------------------------------------
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void run() {
         while (!unfinishedTasks.isEmpty()) {            
