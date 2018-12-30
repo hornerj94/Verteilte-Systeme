@@ -1,22 +1,19 @@
-package a4;
+package a7;
 
 /**
- * The type of client
+ * The type of vote
  * 
  * @author julian
  *
  */
-public enum ClientType {
+public enum VoteType {
     // ---------------------------------------------------------------------------------------------
     
-    /** Voting Type. */
-    VOTING_CLIENT,
+    APPROVAL,
     
-    /** Result Type. */
-    CURRENT_STATE_CLIENT,
+    REFUSAL,
     
-    /** Topic Type. */
-    NEW_TOPIC_CLIENT;
+    ABSTENTION;
     
     // ---------------------------------------------------------------------------------------------
 }

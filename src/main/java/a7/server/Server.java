@@ -1,4 +1,4 @@
-package a4.server;
+package a7.server;
 
 import java.io.EOFException;
 import java.io.File;
@@ -10,8 +10,8 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import a4.Vote;
-import a4.VoteType;
+import a7.Vote;
+import a7.VoteType;
 
 /**
  * Server class for online votes with variable topics.
@@ -23,7 +23,7 @@ public class Server {
     // ---------------------------------------------------------------------------------------------
 
     /** The path to the voteResults file. */
-    private final static String path = "src/main/java/a4/server/voteResults";
+    private final static String path = "src/main/java/a7/server/voteResults";
 
     /** The file that contains the vote results. */
     private static File voteResults = new File(path);

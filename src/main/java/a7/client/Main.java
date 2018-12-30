@@ -1,51 +1,42 @@
-package a4.client;
+package a7.client;
 
 import java.util.Scanner;
 
-import a4.ClientType;
-import a4.VoteType;
+import a7.Response;
+import a7.ClientType;
+import a7.Vote;
+import a7.VoteType;
 
 public class Main {
     // ---------------------------------------------------------------------------------------------
 
-    /** The port of the server to send the incoming messages. */
-    private final static int PORT = 7825;
-
-    /** The port of the server to send the incoming messages. */
-    private final static String SERVER = "DESKTOP-Q99AK62.fh-reutlingen.de";
-
     /** The scanner for reading the users input. */
     private final static Scanner scanner = new Scanner(System.in);
 
-    /** The current type of the client.  */
+    /** The current type of the client. */
     private static ClientType clientType = null;
-    
-    /** The current type of the vote.  */
+
+    /** The current type of the vote. */
     private static VoteType voteType = null;
 
-    /** The current topic of the client.  */
+    /** The current topic of the client. */
     private static String topic = "";
 
     // ---------------------------------------------------------------------------------------------
 
-    public static void main(String[] args) { 
+    public static void main(String[] args) {
         while (true) {
-        	clientType = null;
-        	topic = "";
-        	voteType = null;
-        	
+            clientType = null;
+            topic = "";
+            voteType = null;
+
             startConsole();
 
             if (clientType != null && !topic.equals("")) {
-                ClientCommunicator clientCommunicator = new ClientCommunicator(SERVER, PORT);
-                ClientRequest clientRequest = new ClientRequest(clientCommunicator, clientType, topic, voteType);
-                clientRequest.run();
+                Client client = new Client(clientType, topic, voteType);
+                Response clientResponse = client.request();
 
-                try {
-                    clientRequest.join();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                printClientResponse(clientResponse);
             }
         }
     }
@@ -55,14 +46,12 @@ public class Main {
     private static void startConsole() {
 
         System.out.println("Sie haben folgende Auswahlmöglichkeiten:\n");
-        System.out.println("Geben sie das Wort \"Vote\" ein, " 
-                        + "um für ein Thema das sie interessiert eine Stimme abzugeben ");
-        System.out.println("Geben sie das Wort \"Topic\" ein, " 
-                    + "um ein neues Thema erstellen ");
-        System.out.println("Geben sie das Wort \"Result\" ein, " 
-                + "um die gesammelten Ergebnisse eines Themas zu betrachten ");
-        System.out.println("Geben sie das Wort \"Exit\" ein, " 
-                + "um das Programm zu beenden ");
+        System.out.println(
+                "Geben sie das Wort \"Vote\" ein, " + "um für ein Thema das sie interessiert eine Stimme abzugeben ");
+        System.out.println("Geben sie das Wort \"Topic\" ein, " + "um ein neues Thema erstellen ");
+        System.out.println(
+                "Geben sie das Wort \"Result\" ein, " + "um die gesammelten Ergebnisse eines Themas zu betrachten ");
+        System.out.println("Geben sie das Wort \"Exit\" ein, " + "um das Programm zu beenden ");
         System.out.println("\nEingabe: ");
 
         String input = scanner.nextLine();
@@ -86,7 +75,7 @@ public class Main {
         case "Exit":
             System.exit(0);
             break;
-            
+
         default:
             System.out.println("Ungültige Eingabe");
             break;
@@ -98,13 +87,10 @@ public class Main {
             System.out.println("\nGeben sie das Thema ein zu dem sie eine Stimme abgeben wollen:");
             System.out.println("Thema: ");
             topic = scanner.nextLine();
-            
-            System.out.println("Geben sie \"Approval\" ein, "
-                    + "wenn sie dem Thema ihr Zustimmung geben wollen");
-            System.out.println("Geben sie \"Refusal\" ein, "
-                    + "wenn sie das Thema Ablehnen wollen");
-            System.out.println("Geben sie \"Abstention\" ein, "
-                    + "wenn sie sich bei dem Thema enthalten wollen");
+
+            System.out.println("Geben sie \"Approval\" ein, " + "wenn sie dem Thema ihr Zustimmung geben wollen");
+            System.out.println("Geben sie \"Refusal\" ein, " + "wenn sie das Thema Ablehnen wollen");
+            System.out.println("Geben sie \"Abstention\" ein, " + "wenn sie sich bei dem Thema enthalten wollen");
             System.out.println("Stimme: ");
 
             voteType = convertToEnum(scanner.nextLine());
@@ -127,6 +113,27 @@ public class Main {
                 + " von welchem sie die gesammelten Ergebnisse betrachten wollen:");
         System.out.println("Thema: ");
         topic = scanner.nextLine();
+    }
+
+    // ---------------------------------------------------------------------------------------------
+
+    /**
+     * Prints the response to the console.
+     * 
+     * @param clientResponse The response to print
+     */
+    private static void printClientResponse(final Response clientResponse) {
+        Vote vote = clientResponse.getVote();
+        if (vote != null) {
+            System.out.println("Aktueller Stand der Umfrage: " + vote.getTopic() + "\n");
+            System.out.println("Zustimmungen: " + vote.getApproval());
+            System.out.println("Ablehnungen: " + vote.getRefusal());
+            System.out.println("Enthaltungen: " + vote.getAbstention());
+            System.out.println("\n");
+        } else {
+            System.out.println(clientResponse.getText());
+            System.out.println("\n");
+        }
     }
 
     // ---------------------------------------------------------------------------------------------
