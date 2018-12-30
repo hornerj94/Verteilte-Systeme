@@ -17,8 +17,7 @@ public class JNDIProperties {
             properties = new Properties();
             try {
                 properties.load(new FileInputStream(
-                        new File("src/main/java/distributed_programming/"
-                                + "messaging/resources/jndi.properties")));
+                        new File("src/main/java/a7/resources/jndi.properties")));
             } catch (IOException e) {
                 e.printStackTrace();
             }
