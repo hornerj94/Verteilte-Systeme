@@ -100,8 +100,9 @@ public class Main {
                 }
 
                 Queue tempQueue = (Queue) receivedObjectMessage.getJMSReplyTo();
-                ObjectMessage responseObjectMessage = session.createObjectMessage(response);
                 QueueSender sender = session.createSender(tempQueue);
+                
+                ObjectMessage responseObjectMessage = session.createObjectMessage(response);
                 sender.send(responseObjectMessage);
             }
         } catch (JMSException e) {

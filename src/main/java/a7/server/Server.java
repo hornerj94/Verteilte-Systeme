@@ -43,8 +43,8 @@ public class Server {
 
             }
         }
+        
         return false;
-
     }
 
     // ---------------------------------------------------------------------------------------------
@@ -89,8 +89,8 @@ public class Server {
                 return currentVote;
             }
         }
+        
         return null;
-
     }
 
     /**
@@ -161,8 +161,8 @@ public class Server {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return votes;
 
+        return votes;
     }
 
     // ---------------------------------------------------------------------------------------------
