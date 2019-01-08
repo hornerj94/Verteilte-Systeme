@@ -14,9 +14,9 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import a7.ClientType;
 import a7.Request;
 import a7.Response;
-import a7.ClientType;
 import a7.VoteType;
 import a7.resources.JNDIProperties;
 
@@ -30,7 +30,7 @@ public class Client {
     // ---------------------------------------------------------------------------------------------
 
     /** The destination of the queue on the mom-server. */
-    private static final String DESTINATION = "queue/aufgabe7Queue";
+    private static final String DESTINATION = "queue/aufgabe7Queue2";
 
     /** The id of the user. */
     private static final String USER = "guest";

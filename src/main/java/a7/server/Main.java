@@ -21,7 +21,7 @@ public class Main {
     // ---------------------------------------------------------------------------------------------
 
     /** The destination of the queue on the mom-server. */
-    private static final String DESTINATION = "queue/aufgabe7Queue";
+    private static final String DESTINATION = "queue/aufgabe7Queue2";
 
     /** The id of the user. */
     private static final String USER = "guest";
