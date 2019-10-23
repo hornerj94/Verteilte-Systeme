@@ -1,0 +1,20 @@
+<?xml encoding="UTF-8"?>
+
+<!-- Revision: 1 Xml_syntax.dtd  -->
+
+<!ELEMENT Buecher (Buch|p)+>
+
+<!ELEMENT p (#PCDATA)>
+
+<!ELEMENT Buch (Bestellnummer,Gebiet,Erschienen,Verkaufszahlen,Titel)>
+<!ATTLIST Buch Ausgabe (Gebunden|Taschenbuch) "Gebunden">
+
+<!ELEMENT Bestellnummer (#PCDATA)>
+
+<!ELEMENT Gebiet (#PCDATA)>
+
+<!ELEMENT Erschienen (#PCDATA)>
+
+<!ELEMENT Verkaufszahlen (#PCDATA)>
+
+<!ELEMENT Titel (#PCDATA)>

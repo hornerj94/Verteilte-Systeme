@@ -1,0 +1,4 @@
+Anmerkung: Die Dateien des package build gehören eigentlich in den Ordner in dem der build des 
+Programms enthalten ist. Aus Gründen der Vereinfachung wurde er hier in das build package gelegt.
+
+Einige Konfigurationen könnten nicht mehr korrekt sein.

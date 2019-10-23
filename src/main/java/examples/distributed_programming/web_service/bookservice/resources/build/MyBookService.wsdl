@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions name="MyBookService" targetNamespace="urn:Foo" xmlns:tns="urn:Foo" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+  <types/>
+  <message name="BookIF_getBookTitle">
+    <part name="String_1" type="xsd:string"/></message>
+  <message name="BookIF_getBookTitleResponse">
+    <part name="result" type="xsd:string"/></message>
+  <portType name="BookIF">
+    <operation name="getBookTitle" parameterOrder="String_1">
+      <input message="tns:BookIF_getBookTitle"/>
+      <output message="tns:BookIF_getBookTitleResponse"/></operation></portType>
+  <binding name="BookIFBinding" type="tns:BookIF">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc"/>
+    <operation name="getBookTitle">
+      <soap:operation soapAction=""/>
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="encoded" namespace="urn:Foo"/></input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" use="encoded" namespace="urn:Foo"/></output></operation></binding>
+  <service name="MyBookService">
+    <port name="BookIFPort" binding="tns:BookIFBinding">
+      <soap:address location="REPLACE_WITH_ACTUAL_URL"/></port></service></definitions>

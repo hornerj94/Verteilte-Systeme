@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE Buecher SYSTEM "Xml_syntax.dtd" [
+<!ENTITY XML "Extensible  Markup Language">
+<!ENTITY Taschenbuecher SYSTEM "Taschenbuecher.xml"> ]>
+
+<Buecher>
+	<p>Eine Buecherliste aus dem Umfeld der &XML;:</p>
+	<Buch Ausgabe="Gebunden">
+		<Bestellnummer>13-031</Bestellnummer>
+		<Gebiet>HTML</Gebiet>
+		<Erschienen>1999-09-06</Erschienen>
+		<Verkaufszahlen>12785</Verkaufszahlen>
+		<Titel>HTML Grundlagen</Titel>
+	</Buch>
+   &Taschenbuecher;
+	<Buch>
+		<Bestellnummer>13-011</Bestellnummer>
+		<Gebiet>XML</Gebiet>
+		<Erschienen>1999-07-16</Erschienen>
+		<Verkaufszahlen>9711</Verkaufszahlen>
+		<Titel>XML for Beginners</Titel>
+	</Buch>
+</Buecher>

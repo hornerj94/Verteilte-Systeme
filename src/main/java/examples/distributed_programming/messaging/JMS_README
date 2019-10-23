@@ -1,0 +1,37 @@
+JMS - README
+------------
+
+Vorbereitung der JMS-Beispielprogramme
+
+Voraussetzung: Installation eines JMS Providers, hier
+               verwendet der JBOSS ApplicationServer in der
+               Version 4.0.5.
+
+
+Inbetriebnahme der Programme:
+1) Installation und Starten des JBOSS 4.0.5 auf einem Rechner.
+   Zu nutzende Queue- oder Topic-Einrichtungsdateien kommen 
+   in das Verzeichnis <JBoss-verzeichnis>\server\default\deploy\jms. 
+   
+   
+2) Auf Clientenseite:
+   - Mindestens Java jdk 1.5 sollte verfügbar sein.
+   
+   - Kopieren des Programm-Verzeichnisses in ein
+     Verzeichnis D:\JMS_Prog
+     (wenn anderes Verzeichnis, dann Batch-Datei env.bat
+      entsprechend ändern)
+      
+   - Im build-Unterverzeichnis jedes Programmbeispiels
+     existiert eine Datei mit Namen jndi-properties.
+     In dieser ist, falls der JBOSS-Server auf einem
+     anderen Rechner läuft, in der zweiten Zeile statt
+     localhost der Name des entsprechenden Rechners einzutragen.
+     
+   - Die Beispielprogramme werden aus einer Kommandozeileneingabe
+     gestartet. Zuvor die Batch-Datei env.bat aufrufen (Aufruf env). 
+     
+   - Zum Starten der einzelnen Programme in P01, ... ,P05
+     stehen entsprechende Batch-Dateien zur Verfügung, zum Beispiel
+     producer.bat und consumer1.bat in P01. 
+     

@@ -1,0 +1,18 @@
+<?xml encoding="UTF-8"?>
+
+<!-- Revision: 1 Buecher.dtd  -->
+
+<!ELEMENT Buecher (Buch+)>
+
+<!ELEMENT Buch (Bestellnummer,Gebiet,Erschienen,Verkaufszahlen,Titel)>
+<!ATTLIST Buch Ausgabe (Gebunden|Taschenbuch) "Gebunden">
+
+<!ELEMENT Bestellnummer (#PCDATA)>
+
+<!ELEMENT Gebiet (#PCDATA)>
+
+<!ELEMENT Erschienen (#PCDATA)>
+
+<!ELEMENT Verkaufszahlen (#PCDATA)>
+
+<!ELEMENT Titel (#PCDATA)>

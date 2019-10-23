@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<bookorder orderid="726934" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="bookorder1.xsd">
+	<orderperson>Ben Reader</orderperson>
+	<shipto>
+		<name>Reutlingen University</name>
+		<address>Alteburg Strasse 150</address>
+		<city>72762 Reutlingen</city>
+		<country>Germany</country>
+	</shipto>
+	<item>
+		<title>XML Standards</title>
+		<note>Paperback Edition</note>
+		<quantity>3</quantity>
+		<price>12.90</price>
+	</item>
+	<item>
+		<title>Distributed Systems</title>
+		<quantity>1</quantity>
+		<price>51.95</price>
+	</item>
+</bookorder>

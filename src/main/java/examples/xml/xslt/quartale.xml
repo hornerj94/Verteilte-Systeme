@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<daten>
+  <ergebnis id="Quartal1">
+    <wert>17</wert>
+  </ergebnis>
+  <ergebnis id="Quartal2">
+    <wert>153</wert>
+  </ergebnis>
+  <ergebnis id="Quartal3">
+    <wert>71</wert>
+  </ergebnis>
+  <ergebnis id="Quartal4">
+    <wert>1122</wert>
+  </ergebnis>
+</daten>

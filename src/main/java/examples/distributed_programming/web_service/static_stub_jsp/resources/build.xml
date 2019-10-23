@@ -1,0 +1,64 @@
+<!DOCTYPE project [
+  <!ENTITY targets SYSTEM "../../common/targets.xml">
+  <!ENTITY jaxrpctargets SYSTEM "../common/targets.xml">
+]>
+
+<project name="bookwebclient-example" default="build" basedir=".">
+
+  <!-- Configure the context path for this application -->
+  <property name="example" value="bookwebclient" />
+  <property name="war.file" value="${example}.war" />
+
+  <!-- Configure properties -->
+  <property file="../../common/build.properties"/>
+  <property file="../common/build.properties"/>
+
+  &targets;
+  &jaxrpctargets;
+
+  <target name="copy" depends="prepare" 
+     description="Compile app Java files and copy HTML and JSP pages" >
+    <copy todir="${build}">
+      <fileset dir="web">
+        <include name="**/*.jsp" />
+        <include name="**/*.gif" />
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="build" depends="build-bookwebclient,copy"
+   	description="Create build directories.">
+  </target>
+
+  <target name="create-war" depends="build"
+       description="Packages the WAR file">
+     <echo message="Creating the WAR...."/>
+     <delete file="${assemble.war}/${war.file}" />
+     <delete dir="${assemble.war}/WEB-INF" />
+     <copy todir="${assemble.war}/WEB-INF"
+           file="./sun-web.xml" />
+     
+     <copy todir="${assemble.war}/WEB-INF/classes/">
+       <fileset dir="${build}">
+         <include name="**/*.class" />
+       </fileset>
+     </copy>
+     <copy todir="${assemble.war}">
+       <fileset dir="${build}">
+         <include name="*.jsp" />
+         <include name="*.gif" />
+       </fileset>
+     </copy>
+     <war destfile="${assemble.war}/${war.file}" 
+          webxml="./web.xml" filesonly="true" >
+       <fileset dir="${assemble.war}" includes="WEB-INF/**, *.jsp, *.gif" />
+     </war>
+     <copy file="${assemble.war}/${war.file}" todir="." />
+  </target>
+
+</project>
+
+
+
+
+

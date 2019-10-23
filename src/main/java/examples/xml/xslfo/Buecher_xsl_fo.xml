@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/xsl" href="Buecher_fo.xsl"?>
+
+<Buecher>
+	<Buch Ausgabe="Gebunden">
+		<Bestellnummer>13-031</Bestellnummer>
+		<Gebiet>HTML</Gebiet>
+		<Erschienen>2004-09-06</Erschienen>
+		<Verkaufszahlen>12785</Verkaufszahlen>
+		<Titel>HTML Einstieg</Titel>
+	</Buch>
+	<Buch Ausgabe="Taschenbuch">
+		<Bestellnummer>13-038</Bestellnummer>
+		<Gebiet>Scripting</Gebiet>
+		<Erschienen>2002-07-23</Erschienen>
+		<Verkaufszahlen>35298</Verkaufszahlen>
+		<Titel>JavaScript Sofort</Titel>
+	</Buch>
+	<Buch Ausgabe="Gebunden">
+		<Bestellnummer>13-132</Bestellnummer>
+		<Gebiet>Java</Gebiet>
+		<Erschienen>2001-01-19</Erschienen>
+		<Verkaufszahlen>219711</Verkaufszahlen>
+		<Titel>Java in 12 Tagen</Titel>
+	</Buch>
+	<Buch>
+		<Bestellnummer>13-011</Bestellnummer>
+		<Gebiet>XML</Gebiet>
+		<Erschienen>2003-07-16</Erschienen>
+		<Verkaufszahlen>9711</Verkaufszahlen>
+		<Titel>XML fuer Anfaenger</Titel>
+	</Buch>
+</Buecher>

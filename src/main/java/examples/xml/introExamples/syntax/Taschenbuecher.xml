@@ -1,0 +1,15 @@
+
+<Buch Ausgabe="Taschenbuch">
+	<Bestellnummer>13-038</Bestellnummer>
+	<Gebiet>Scripting</Gebiet>
+	<Erschienen>1998-07-23</Erschienen>
+	<Verkaufszahlen>35298</Verkaufszahlen>
+	<Titel>Instant JavaScript</Titel>
+</Buch>
+<Buch Ausgabe="Taschenbuch">
+	<Bestellnummer>13-132</Bestellnummer>
+	<Gebiet>Java</Gebiet>
+	<Erschienen>1997-01-19</Erschienen>
+	<Verkaufszahlen>219711</Verkaufszahlen>
+	<Titel>Java in 21 Days</Titel>
+</Buch>
